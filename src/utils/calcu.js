@@ -21,8 +21,14 @@ export const calculateCronbachAlpha = (data) => {
 
     const sum_item_variances = item_variances.reduce((a, b) => a + b, 0);
 
+    if (total_variance === 0) {
+        console.error('Error: total variance is zero, division by zero not allowed.');
+        return 'Invalid Data!';
+    }
+
+
     const alpha = (n_items / (n_items - 1)) * (1 - sum_item_variances / total_variance);
     console.log('Cronbach Alpha:', alpha, 'Type:', typeof(alpha));
-
+    
     return alpha;
 };
