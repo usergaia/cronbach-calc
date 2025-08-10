@@ -24,5 +24,5 @@ export const calculateCronbachAlpha = (data) => {
     const alpha = (n_items / (n_items - 1)) * (1 - sum_item_variances / total_variance);
     console.log('Cronbach Alpha:', alpha, 'Type:', typeof(alpha));
 
-    return alpha.toFixed(4); // TODO: Make this user-dynamic
+    return alpha;
 };
