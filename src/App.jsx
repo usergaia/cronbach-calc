@@ -13,15 +13,19 @@ function App() {
     setFile(e.target.files[0])
   }
 
-  const handleCalculate = () => {
-    if (file) {
-      console.log('Calculating Cronbach Alpha from file:', file.name);
-      const res = getAlpha(file)
+  const handleCalculate = async () => {
+    if (!file) return
+
+    try {
+      console.log('Calculating Cronbach Alpha from file:', file.name)
+      const res = await getAlpha(file)
+      console.log('Cronbach Alpha in app.jsx:', res)
       setAlpha(res)
-    }else{
-      return null
+    } catch (error) {
+      console.error('Failed to calculate alpha:', error)
     }
-  };
+  }
+
 
   return (
     <>
