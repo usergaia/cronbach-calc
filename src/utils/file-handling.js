@@ -13,9 +13,11 @@ export const getAlpha = (file) => {
         const rows = data
           .trim()
           .split('\n')
+          .slice(1) // skip header row for now
           .map(row => row.split(',').map(Number));
         const result = calculateCronbachAlpha(rows);
         resolve(result);
+        console.log('Cronbach Alpha in file-handling.js (csv): ', result);
       };
       reader.readAsText(file);
 
