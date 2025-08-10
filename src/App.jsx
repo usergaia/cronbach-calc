@@ -2,8 +2,7 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './styles/App.css'
-import './utils/calcu.js'
-import { calculateCronbachAlpha } from './utils/calcu.js'
+import { getAlpha } from './utils/file-handling.js'
 
 function App() {
   const [alpha, setAlpha] = useState(null)
@@ -15,32 +14,14 @@ function App() {
   }
 
   const handleCalculate = () => {
-    console.log('Calculating Cronbach Alpha from file:', file.name)
     if (file) {
-
-      const result = calculateCronbachAlpha(file)
-      
-      const reader = new FileReader()
-
-      reader.onload = (evt) => {
-        const data = evt.target.result
-        if (data.endsWith('.csv')) {
-          const rows = data.split('\n').map(row => row.split(','))
-          const result = calculateCronbachAlpha(rows)
-          setAlpha(result)
-        }
-        else if (data.endsWith('.xlsx')) {
-          const workbook = XLSX.read(data, { type: 'binary' })
-          const sheetName = workbook.SheetNames[0]
-          const rows = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName], { header: 1 })
-          const result = calculateCronbachAlpha(rows)
-          setAlpha(result)
-      }
+      console.log('Calculating Cronbach Alpha from file:', file.name);
+      const res = getAlpha(file)
+      setAlpha(res)
+    }else{
+      return null
     }
-      console.log('result', result)
-      // reader.readAsText(file)
-    }
-  }
+  };
 
   return (
     <>
@@ -58,7 +39,7 @@ function App() {
 
       <button onClick={handleCalculate}>Press me</button>
 
-      {alpha ? <p>File Selected: {alpha.name}</p> : <p>No File Selected</p>}  {/* Ignore */}
+      <p>{alpha !== null ? `Cronbach's Alpha: ${alpha}` : 'No result available'}</p>
     </>
   )
 }
