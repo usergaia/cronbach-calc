@@ -1,6 +1,4 @@
 
-
-
 import React from 'react';
 import { useEffect } from 'react';
 
@@ -53,6 +51,8 @@ export const UpdateTable = ({ tableData, setTableData }) => {
     setTableData(newMatrix);
   };
 
+
+
   const deleteRow = (rowIndex) => {
     const newTableData = tableData.filter((_, index) => index !== rowIndex);
     setTableData(newTableData);
@@ -76,7 +76,7 @@ export const UpdateTable = ({ tableData, setTableData }) => {
   if (!tableData || tableData.length === 0) return null;
 
   return (
-    <table style={{ borderCollapse: 'collapse' }}>
+    <table className="mx-auto my-8 border-collapse table-auto">
       <thead>
         <tr>
           <th></th>

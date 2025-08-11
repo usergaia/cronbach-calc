@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './styles/App.css'
 import { getAlpha } from './utils/file-handling.js'
-import { ResultTable, CreateTable} from './components/table-view.jsx'
+import { ResultTable, CreateTable } from './components/table-view.jsx'
 import { calculateCronbachAlpha } from './utils/calcu.js'
 
 
@@ -40,19 +40,17 @@ function App() {
   }
 
   const createTable = () => {
-
     if (!tableRow || !tableCol) {
       console.error('Invalid row or column input');
       return;
     }
-    
-    setConfirmedRow(Number(tableRow));
-    setConfirmedCol(Number(tableCol));
-    setTableData([]);
-    console.log('Confirmed:', tableRow, tableCol);
-
+    const row = Number(tableRow);
+    const col = Number(tableCol);
+    setConfirmedRow(row);
+    setConfirmedCol(col);
+    setTableData(Array.from({ length: row }, () => Array(col).fill('')));
+    console.log('Confirmed:', row, col);
   }
-
   const handleTableData = async () => {
     try {
       const numericTableData = tableData.map(row => row.map(cell => Number(cell)));
@@ -71,31 +69,39 @@ function App() {
   return (
     <>
       <h1>Cronbach's Alpha Calculator</h1>
-      <input id="matr-row" type="number" min="1" placeholder="Number of rows" onChange={(e) => setTableRow(e.target.value)} />
-      <input id="matr-col" type="number" min="1" placeholder="Number of columns" onChange={(e) => setTableCol(e.target.value)} />
+      <input className='border p-2 mt-4 mb-2 mr-2' id="matr-row" type="number" min="1" placeholder="Number of rows" onChange={(e) => setTableRow(e.target.value)} />
+      x
+      <input className='border p-2 mt-4 mb-2 mr-2 ml-2' id="matr-col" type="number" min="1" placeholder="Number of columns" onChange={(e) => setTableCol(e.target.value)} />
 
-      <button onClick={createTable}>Create</button>
+      <button className="text-gray-900 bg-gradient-to-r from-teal-200 to-lime-200 hover:bg-gradient-to-l hover:from-teal-200 hover:to-lime-200 focus:ring-4 focus:outline-none focus:ring-lime-200 dark:focus:ring-teal-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2" onClick={createTable}>Create</button>
 
-      {confirmedRow > 0 && confirmedCol > 0 ? (
-        <CreateTable
-          row={confirmedRow}
-          col={confirmedCol}
-          data={[]}
-          tableData={tableData}
-          setTableData={setTableData}
-        />
+
+
+      {confirmedRow > 0 && confirmedCol > 0 && tableData.length > 0 ? (
+        <>
+      <button
+        className="bg-[#242424] hover:bg-red-500" onClick={createTable}>
+          Reset
+      </button>
+          <CreateTable
+            row={confirmedRow}
+            col={confirmedCol}
+            tableData={tableData}
+            setTableData={setTableData}
+          />
+        </>
       ) : null}
 
-      {confirmedRow && confirmedCol ? <button onClick={handleTableData}>Submit</button> : null}
+      {confirmedRow && confirmedCol ? <button className='bg-red-500 hover:bg-yellow-500' onClick={handleTableData}>Submit</button> : null}
 
       <br></br>
       <br></br>
-      <input id="file-upload" type="file" accept=".csv,.xlsx" onChange={(fileInput) => handleFileChange(fileInput)} />
+      <input className='border p-2 mt-4 mb-2 mr-2' id="file-upload" type="file" accept=".csv,.xlsx" onChange={(fileInput) => handleFileChange(fileInput)} />
 
-      <button onClick={handleFile}>Upload</button>
+      <button className='bg-green-500 hover:bg-yellow-500' onClick={handleFile}>Upload</button>
 
 
-      <p>{alpha !== null ? `Cronbach's Alpha: ${alpha}` : 'No result available'}</p>
+      <p className='border border-lime-300'>{alpha !== null ? `Cronbach's Alpha: ${alpha}` : 'No result available'}</p>
 
       {matrix ? (matrix.length > 0 && <ResultTable data={matrix} />) : null}
 
