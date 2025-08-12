@@ -9,7 +9,7 @@ function App() {
     <div className="min-h-screen flex flex-col">
       <NavBar />
       <section className="flex-1 py-13">
-        <div className="flex">
+        <div className="flex items-start">
           <Guide />
           <MainFeature />
         </div>
