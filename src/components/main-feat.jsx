@@ -2,15 +2,15 @@ import { useState } from "react";
 import { calculateCronbachAlpha } from "../utils/calcu.js";
 import { getAlpha } from "../utils/file-handling.js";
 import { CreateTable, ResultTable } from "./table-view.jsx";
+
 import { VscChromeClose } from "react-icons/vsc";
+import { FiUpload } from "react-icons/fi";
 
 
 export const MainFeature = () => {
+
   // Track NaN cells for error highlighting
   const [nanCells, setNanCells] = useState([]); // array of [rowIdx, colIdx]
-  // Error state for inputs
-  const [rowError, setRowError] = useState("");
-  const [colError, setColError] = useState("");
 
   // for data handling
   const [alpha, setAlpha] = useState(null)
@@ -26,32 +26,10 @@ export const MainFeature = () => {
 
   //error handling
   const [errEF, setErrEF] = useState(null)
+  const [rowError, setRowError] = useState("");
+  const [colError, setColError] = useState("");
+  const [errCells, setErrCells] = useState(null);
 
-
-
-  const handleFile = async () => {
-    if (!file) return setErrEF('No file selected');
-    setErrEF(null); 
-    try {
-      console.log('Parsing file for table preview:', file.name)
-      const res = await getAlpha(file)
-      if (res.alp === 'Invalid Data!' || res === false) {
-        setErrEF('Invalid file format or data');
-        return;
-      }
-      // Instead of calculating, just set tableData for editing
-      setTableData(res.mat)
-      setConfirmedRow(res.mat.length)
-      setConfirmedCol(res.mat[0]?.length || 0)
-    } catch (error) {
-      setErrEF('Failed to parse file: ' + (error?.message || error));
-    }
-  }
-
-  const handleFileChange = (e) => {
-    console.log('File selected:', e.target.files[0])
-    setFile(e.target.files[0])
-  }
 
   // Input handlers with validation
   const handleRowChange = (e) => {
@@ -103,7 +81,6 @@ export const MainFeature = () => {
 
 
   const resetTable = () => {
-
     confirmedCol && confirmedRow ? setTableData(Array.from({ length: confirmedRow }, () => Array(confirmedCol).fill(''))) : createTable();
   }
 
@@ -121,8 +98,10 @@ export const MainFeature = () => {
     });
     if (nanList.length > 0) {
       setNanCells(nanList);
-      setErrEF('Some cells are empty or invalid. Please correct highlighted cells.');
+      setErrCells('Some cells are empty or invalid. Please correct highlighted cells.');
       return;
+    } else {
+      setErrCells(null);
     }
     try {
       const numericTableData = tableData.map(row => row.map(cell => Number(cell)));
@@ -139,6 +118,68 @@ export const MainFeature = () => {
   return (
   <div className="top-0 max-w-5xl min-w-0 bg-gray-50 p-0 text-black mx-auto rounded-lg border-2 border-gray-300 shadow-2xl">
   <div className="top-0 pt-8 px-4 w-full flex flex-col items-center">
+
+
+
+
+        <div className="mb-4 text-left w-full max-w-md">
+          <div className="mb-1">
+            <span className="block text-gray-800 font-semibold text-sm">Upload Data File</span>
+            <span className="block text-xs text-gray-500 mt-0.5 italic">Supported formats: <span className="underline">csv</span>, <span className="underline">xlsx</span>, <span className="underline">xls</span></span>
+          </div>
+          <div className="flex items-center gap-3 mt-2">
+            {/* Hidden file input, triggered by Upload button */}
+            <input
+              id="customFileInput"
+              type="file"
+              className="hidden"
+              onChange={async (e) => {
+                const selectedFile = e.target.files[0];
+                setFile(selectedFile);
+                if (!selectedFile) return setErrEF('No file selected');
+                setErrEF(null);
+                try {
+                  const res = await getAlpha(selectedFile);
+                  if (res.alp === 'Invalid Data!' || res === false) {
+                    setErrEF('Invalid file format or data');
+                    return;
+                  }
+                  setTableData(res.mat);
+                  setConfirmedRow(res.mat.length);
+                  setConfirmedCol(res.mat[0]?.length || 0);
+                } catch (error) {
+                  setErrEF(
+                    <div className='text-xs'>
+                      <b>Failed to parse file: </b>
+                      <i>{error?.message || error}</i>
+                    </div>
+                  );
+                }
+              }}
+              ref={el => window._fileInputRef = el}
+            />
+            {/* File name display */}
+            <div className="flex-1 min-w-0 px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm text-gray-600 truncate shadow-inner">
+              {file ? file.name : <span className="italic text-gray-400">No file chosen</span>}
+            </div>
+            {/* Upload button triggers file input */}
+            <button
+              className="bg-neutral-900 hover:bg-blue-700 text-white px-5 py-2 rounded-lg flex items-center gap-2 shadow-md transition-colors duration-150"
+              onClick={() => window._fileInputRef && window._fileInputRef.click()}
+              type="button"
+            >
+              <FiUpload className="w-5 h-5" />
+              <span className="font-medium">Upload</span>
+            </button>
+          </div>
+          {errEF ? <i className="text-red-500 block mt-1 text-center opacity-70">{errEF}</i> : null}
+        </div>
+
+                    <div className="flex items-center my-6 w-full">
+          <div className="flex-grow border-t-2 border-gray-300 shadow-sm opacity-60"></div>
+          <span className="mx-4 text-gray-500 font-semibold">OR</span>
+          <div className="flex-grow border-t-2 border-gray-300 shadow-sm opacity-60"></div>
+        </div>
 
         <div className="flex flex-row items-center mb-4">
           <div className="flex flex-col items-center">
@@ -183,33 +224,8 @@ export const MainFeature = () => {
             nanCells={nanCells}
           />
         </div>
-        <div className="flex items-center my-6 w-full">
-          <div className="flex-grow border-t-2 border-gray-300 shadow-sm opacity-60"></div>
-          <span className="mx-4 text-gray-500 font-semibold">OR</span>
-          <div className="flex-grow border-t-2 border-gray-300 shadow-sm opacity-60"></div>
-        </div>
 
-<div className="mb-4">
-  <label className="text-left block text-gray-600 text-sm mb-1"><b>Upload Data File </b><i>(.csv, .xslx, .xls)</i></label>
-  <div className="flex">
-    <input
-      type="file"
-      className="block w-full border border-gray-300 rounded-l px-2 py-1 text-sm"
-      onChange={handleFileChange}
-    />
-    <button
-      className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-1 rounded-r flex items-center"
-      onClick={handleFile}
-    >
-      <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V4" />
-      </svg>
-      Upload
-    </button>
-  </div>
-   {errEF ? <tt className="text-red-500">{errEF}</tt> : null}
-</div>
-
+        {errCells ? <div className="text-red-500 text-xs mt-1">{errCells}</div> : null}
 
         <button className='bg-[#0183ce] rounded-lg hover:bg-yellow-500 mt-6' onClick={handleTableData}>Calculate Cronbach's Alpha</button>
         <p className="mt-6">{alpha !== null ? `Cronbach's Alpha: ${alpha}` : null}</p>
