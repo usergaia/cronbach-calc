@@ -15,9 +15,12 @@ export const getAlpha = (file) => {
             .split('\n')
             .map(row => row.split(',').map(Number)); 
 
-        if (!checkValidity(matrix)) {
+
+        const expectedCol = matrix[0] ? matrix[0].length : 0;
+
+        if (!checkValidity(matrix, expectedCol)) {
             reject(new Error('Invalid data format'));
-            return;
+            return false;
         }
 
         const result = calculateCronbachAlpha(matrix);
@@ -34,7 +37,9 @@ export const getAlpha = (file) => {
         const sheetName = workbook.SheetNames[0];
         const matrix = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName], { header: 1 });
 
-        if (!checkValidity(matrix)) {
+        const expectedCol = matrix[0] ? matrix[0].length : 0;
+
+        if (!checkValidity(matrix, expectedCol)) {
           reject(new Error('Invalid data format'));
           return;
         }
@@ -50,15 +55,18 @@ export const getAlpha = (file) => {
   });
 };
 
-export const checkValidity = (matrix) => {
+export const checkValidity = (matrix, expectedCol) => {
 
-    const flatMatrix = matrix.flat();
+  // Check for inconsistent row lengths
+  if (matrix.some((row, rowIndex) => {
+    if (row.length !== expectedCol) {
+      console.log(`Row ${rowIndex} does not match expected column count ${expectedCol}`);
+      return true;
+    }
+    return false;
+  })) {
+    return false;
+  }
 
-    flatMatrix.forEach((value, index) => {
-        if (isNaN(Number(value))) {
-            console.log(`Invalid value at index ${index}: ${value}`);
-            return false;
-        }
-    });
-    return true;
+  return true;
 }
