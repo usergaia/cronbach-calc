@@ -5,9 +5,12 @@ import { CreateTable, ResultTable } from "./table-view.jsx";
 
 import { VscChromeClose } from "react-icons/vsc";
 import { FiUpload } from "react-icons/fi";
+import { MdFullscreen } from "react-icons/md";
 
 
 export const MainFeature = () => {
+  // Full screen popup state
+  const [showTableFullScreen, setShowTableFullScreen] = useState(false);
 
   // Track NaN cells for error highlighting
   const [nanCells, setNanCells] = useState([]); // array of [rowIdx, colIdx]
@@ -116,11 +119,8 @@ export const MainFeature = () => {
   }
     
   return (
-  <div className="top-0 max-w-5xl min-w-0 bg-gray-50 p-0 text-black mx-auto rounded-lg border-2 border-gray-300 shadow-2xl">
+  <div className="top-0 max-w-5xl min-w-0 bg-gray-50 p-0 text-black mx-auto rounded-lg border-2 border-gray-300 shadow-xl/30">
   <div className="top-0 pt-8 px-4 w-full flex flex-col items-center">
-
-
-
 
         <div className="mb-4 text-left w-full max-w-md">
           <div className="mb-1">
@@ -128,6 +128,7 @@ export const MainFeature = () => {
             <span className="block text-xs text-gray-500 mt-0.5 italic">Supported formats: <span className="underline">csv</span>, <span className="underline">xlsx</span>, <span className="underline">xls</span></span>
           </div>
           <div className="flex items-center gap-3 mt-2">
+
             {/* Hidden file input, triggered by Upload button */}
             <input
               id="customFileInput"
@@ -138,6 +139,8 @@ export const MainFeature = () => {
                 setFile(selectedFile);
                 if (!selectedFile) return setErrEF('No file selected');
                 setErrEF(null);
+                setNanCells([]); // Clear NaN cell highlights
+                setErrCells(null); // Clear error message
                 try {
                   const res = await getAlpha(selectedFile);
                   if (res.alp === 'Invalid Data!' || res === false) {
@@ -213,9 +216,22 @@ export const MainFeature = () => {
             role="link" className="relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:w-full after:origin-bottom after:scale-x-0 after:bg-red-800 after:transition-transform after:duration-300 after:ease-[cubic-bezier(0.65_0.05_0.36_1)] hover:after:origin-bottom hover:after:scale-x-100 ml-2" onClick={resetTable}>
               Reset
           </button>
+                  <button
+            type="button"
+            className="transition-transform duration-200 hover:scale-110"
+            onClick={() => setShowTableFullScreen(true)}
+            title="Open table in full screen"
+          >
+            <MdFullscreen />
+        </button>
         </div>
 
-        <div className="w-full min-w-0 overflow-x-auto">
+
+
+
+
+
+        <div className="w-full min-w-0 overflow-x-auto relative">
           <CreateTable
             row={2}
             col={2}
@@ -225,9 +241,36 @@ export const MainFeature = () => {
           />
         </div>
 
+        {/* Full Screen Table Platform - fills viewport, no extra wrappers, table is the platform */}
+        {showTableFullScreen && (
+          <div className="fixed inset-0 z-50 bg-black bg-opacity-80 flex items-center justify-center m-0 p-0">
+            <button
+              type="button"
+              className="absolute top-4 right-6 text-gray-500 hover:text-red-600 text-4xl font-bold z-50 bg-white bg-opacity-80 rounded-full px-3 py-1 shadow-lg"
+              onClick={() => setShowTableFullScreen(false)}
+              title="Close full screen table"
+              style={{lineHeight:1}}
+            >
+              ×
+            </button>
+            <div className="w-screen h-screen flex items-center justify-center m-0 p-0">
+              <CreateTable
+                row={2}
+                col={2}
+                tableData={tableData}
+                setTableData={setTableData}
+                nanCells={nanCells}
+              />
+            </div>
+          </div>
+        )}
+
         {errCells ? <div className="text-red-500 text-xs mt-1">{errCells}</div> : null}
 
-        <button className='bg-[#0183ce] rounded-lg hover:bg-yellow-500 mt-6' onClick={handleTableData}>Calculate Cronbach's Alpha</button>
+        <button className="group relative inline-flex h-12 items-center justify-center overflow-hidden rounded-md bg-neutral-950 px-6 font-medium text-neutral-50" onClick={handleTableData}>
+          <span className="absolute h-0 w-0 rounded-full bg-blue-500 transition-all duration-300 group-hover:h-56 group-hover:w-32"></span>
+          <span className="relative">Calculate</span>
+        </button>
         <p className="mt-6">{alpha !== null ? `Cronbach's Alpha: ${alpha}` : null}</p>
 
         {matrix ? (matrix.length > 0 && <ResultTable data={matrix} />) : null}
