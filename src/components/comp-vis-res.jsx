@@ -282,8 +282,6 @@ export function ComputationVisualization({
     </div>
   );
 
-  
-
   // calculate alpha value
   const calculatedAlpha =
     computation.total_variance > 0

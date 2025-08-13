@@ -97,9 +97,6 @@ export const Guide = () => {
               <li className="m-2 flex items-center gap-2">
                 <BiSolidErrorAlt /> Empty or Non-Numeric cells.
               </li>
-              <li className="m-2 flex items-center gap-2">
-                <BiSolidErrorAlt /> Not following the file format guidelines.
-              </li>
             </ul>
           </div>
         </div>
