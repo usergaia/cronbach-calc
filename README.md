@@ -19,7 +19,7 @@
 - **Formula Breakdown** - View step-by-step calculation process
 - **Statistical Analysis** - Detailed variance and mean calculations
 
-## Built With
+## Built with
 
 - **React JS + Vite (SWC)**
 - **TailwindCSS**
@@ -35,7 +35,7 @@ Verified against existing calculators using [publicly available data](https://ca
 
 ## Notes
 
-This is a personal project built to learn web frameworks, particularly JavaScript, and TailwindCSS styling. Gained experience with JavaScript fundamental syntax, Tailwind commands, code formatting tools (`eslint`, `prettier`), and various deployment platforms.
+This is a personal project built to learn web frameworks, particularly JavaScript, and TailwindCSS styling. Gained experience with JavaScript fundamental syntax, Tailwind commands, code formatting tools (`eslint`, `prettier`), various deployment platforms, and [react-icons](https://react-icons.github.io/react-icons/), such a great find.
 
 *Send your feedbacks [here](link).*
 
