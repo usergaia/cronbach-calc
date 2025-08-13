@@ -2,35 +2,50 @@ import * as XLSX from "xlsx";
 import { calculateCronbachAlpha } from "./calcu.js";
 
 export const getAlpha = (file) => {
+  const MAX_SIZE = 5 * 1024 * 1024; // 5MB
   return new Promise((resolve, reject) => {
+    if (!file) {
+      reject(new Error("No file provided"));
+      return;
+    }
+    if (file.size > MAX_SIZE) {
+      reject(new Error("File size exceeds 5MB limit"));
+      return;
+    }
     const reader = new FileReader();
-
     reader.onerror = () => reject(new Error("File reading failed"));
 
     if (file.name.endsWith(".csv")) {
       reader.onload = (evt) => {
         const data = evt.target.result;
+
+        // ignore empty lines, trim, handle extra whitespace
         const matrix = data
-          .trim()
-          .split("\n")
-          .map((row) => row.split(",").map(Number));
+          .split(/\r?\n/)
+          .map((row) => row.trim())
+          .filter((row) => row.length > 0)
+          .map((row) =>
+            row.split(",").map((cell) => {
+              const val = cell.trim();
+
+              // try to parse as number, fallback to original if NaN
+              const num = Number(val);
+              return isNaN(num) ? val : num;
+            }),
+          );
 
         const expectedCol = matrix[0] ? matrix[0].length : 0;
-        // Reject if less than 2x2
         if (matrix.length < 2 || expectedCol < 2) {
           reject(new Error("File must have at least 2 rows and 2 columns"));
-          return false;
+          return;
         }
         if (!checkValidity(matrix, expectedCol)) {
           reject(new Error("Invalid data format"));
-          return false;
+          return;
         }
 
         const result = calculateCronbachAlpha(matrix);
         resolve({ alp: result, mat: matrix });
-        console.log("Cronbach Alpha in file-handling.js (csv): ", result);
-
-        // Reset file input value to allow uploading the same file consecutively
         if (window._fileInputRef) window._fileInputRef.value = "";
       };
       reader.readAsText(file);
@@ -44,7 +59,6 @@ export const getAlpha = (file) => {
         });
 
         const expectedCol = matrix[0] ? matrix[0].length : 0;
-        // Reject if less than 2x2
         if (matrix.length < 2 || expectedCol < 2) {
           reject(new Error("File must have at least 2 rows and 2 columns"));
           return;
@@ -56,8 +70,6 @@ export const getAlpha = (file) => {
 
         const result = calculateCronbachAlpha(matrix);
         resolve({ alp: result, mat: matrix });
-
-        // Reset file input value to allow uploading the same file consecutively
         if (window._fileInputRef) window._fileInputRef.value = "";
       };
       reader.readAsArrayBuffer(file);
@@ -74,11 +86,8 @@ export const checkValidity = (matrix, expectedCol) => {
   }
   // Check for inconsistent row lengths
   if (
-    matrix.some((row, rowIndex) => {
+    matrix.some((row) => {
       if (row.length !== expectedCol) {
-        console.log(
-          `Row ${rowIndex} does not match expected column count ${expectedCol}`,
-        );
         return true;
       }
       return false;

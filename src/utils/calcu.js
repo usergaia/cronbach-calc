@@ -18,13 +18,103 @@
  */
 export const calculateCronbachAlpha = (data) => {
   // data: 2D array (rows = responses, columns = items)
-  if (!Array.isArray(data) || data.length === 0) return { alpha: NaN }; // empty data
-  const n_items = data[0].length;
-  if (n_items <= 1) return { alpha: NaN };
+  if (!Array.isArray(data) || data.length === 0) {
+    return {
+      alpha: NaN,
+      error: {
+        code: "EMPTY_DATA",
+        message: "Input data is empty or not an array.",
+        details: "Please provide a valid 2D array with survey responses.",
+      },
+    };
+  }
+  if (!Array.isArray(data[0]) || data[0].length === 0) {
+    return {
+      alpha: NaN,
+      error: {
+        code: "INVALID_SHAPE",
+        message: "Input data is not a 2D array or has no columns.",
+        details:
+          "Data should be a matrix where rows are respondents and columns are items/questions.",
+      },
+    };
+  }
 
-  // 1. Calculate variance for each item (σᵢ²) and mean for each item
+  const n_items = data[0].length;
+  const n_respondents = data.length;
+
+  if (n_items <= 1) {
+    return {
+      alpha: NaN,
+      error: {
+        code: "NOT_ENOUGH_ITEMS",
+        message: "At least 2 items (columns) are required.",
+        details: `Found ${n_items} item(s). Cronbach's Alpha requires at least 2 items to measure internal consistency.`,
+      },
+    };
+  }
+  if (data.length <= 1) {
+    return {
+      alpha: NaN,
+      error: {
+        code: "NOT_ENOUGH_RESPONDENTS",
+        message: "At least 2 respondents (rows) are required.",
+        details: `Found ${n_respondents} respondent(s). Need at least 2 respondents to calculate variance.`,
+      },
+    };
+  }
+
+  // Check for jagged array (rows of different lengths)
+  for (let i = 0; i < data.length; i++) {
+    if (!Array.isArray(data[i]) || data[i].length !== n_items) {
+      return {
+        alpha: NaN,
+        error: {
+          code: "JAGGED_ARRAY",
+          message: `Row ${i + 1} does not have the same number of columns as the first row.`,
+          details: `Expected ${n_items} columns but found ${data[i]?.length || 0} in row ${i + 1}.`,
+        },
+      };
+    }
+  }
+
+  // Check for non-numeric values
+  for (let i = 0; i < data.length; i++) {
+    for (let j = 0; j < n_items; j++) {
+      if (typeof data[i][j] !== "number" || isNaN(data[i][j])) {
+        return {
+          alpha: NaN,
+          error: {
+            code: "NON_NUMERIC_VALUE",
+            message: `Non-numeric value found at row ${i + 1}, column ${j + 1}.`,
+            details: `Found "${data[i][j]}" (${typeof data[i][j]}) at position [${i + 1}, ${j + 1}]. All values must be numbers.`,
+          },
+        };
+      }
+    }
+  }
+
+  // Calculate basic statistics first (always needed for denomination table)
+  // 1. Calculate total score for each respondent (row)
+  const total_scores = [];
+  for (let i = 0; i < data.length; i++) {
+    let rowSum = 0;
+    for (let j = 0; j < n_items; j++) {
+      rowSum += data[i][j];
+    }
+    total_scores.push(rowSum);
+  }
+
+  // Calculate sum of total scores
+  let sum_total_scores = 0;
+  for (let i = 0; i < total_scores.length; i++) {
+    sum_total_scores += total_scores[i];
+  }
+
+  // 2. Calculate variance for each item (σᵢ²) and mean for each item
   const item_variances = [];
   const item_means = [];
+  const zeroVarianceItems = [];
 
   for (let col = 0; col < n_items; col++) {
     // Calculate mean for this column
@@ -45,24 +135,21 @@ export const calculateCronbachAlpha = (data) => {
     }
     const variance = sqDiffSum / (count - 1);
     item_variances.push(variance);
+
+    // Track zero variance items with details
+    if (variance === 0) {
+      zeroVarianceItems.push({
+        item: col + 1,
+        value: data[0][col],
+        description: `Q${col + 1} (all responses = ${data[0][col]})`,
+      });
+    }
   }
 
-  // 2. Calculate total score for each respondent (row) and its variance (σₜ²)
-  // Calculate total score for each respondent (row)
-  const total_scores = [];
-  for (let i = 0; i < data.length; i++) {
-    let rowSum = 0;
-    for (let j = 0; j < n_items; j++) {
-      rowSum += data[i][j];
-    }
-    total_scores.push(rowSum);
-  }
+  // 3. Calculate total score statistics
   // Calculate mean of total scores
-  let totalSum = 0;
-  for (let i = 0; i < total_scores.length; i++) {
-    totalSum += total_scores[i];
-  }
-  const total_mean = totalSum / total_scores.length;
+  const total_mean = sum_total_scores / total_scores.length;
+
   // Calculate variance of total scores
   let totalSqDiffSum = 0;
   for (let i = 0; i < total_scores.length; i++) {
@@ -71,23 +158,65 @@ export const calculateCronbachAlpha = (data) => {
   }
   const total_variance = totalSqDiffSum / (total_scores.length - 1);
 
-  // 3. Sum of item variances (Σσᵢ²) and sum of total scores (for reporting)
   // Calculate sum of item variances
   let sum_item_variances = 0;
   for (let i = 0; i < item_variances.length; i++) {
     sum_item_variances += item_variances[i];
   }
-  // Calculate sum of total scores
-  let sum_total_scores = 0;
-  for (let i = 0; i < total_scores.length; i++) {
-    sum_total_scores += total_scores[i];
+
+  // Create base computation data (always return this for denomination table)
+  const baseComputationData = {
+    n_items,
+    n_respondents,
+    item_variances,
+    item_means,
+    total_scores,
+    total_mean,
+    total_variance,
+    sum_item_variances,
+    sum_total_scores,
+    zeroVarianceItems,
+  };
+
+  // Enhanced error checking with detailed information and computation data
+  if (item_variances.every((v) => v === 0)) {
+    return {
+      alpha: NaN,
+      computationData: baseComputationData,
+      error: {
+        code: "ZERO_ITEM_VARIANCE",
+        message: "All items have zero variance (all columns are constant).",
+        details: `All ${n_items} items show no variation across respondents. This means all respondents gave the same answer to every question, making reliability calculation meaningless.`,
+        affectedItems: zeroVarianceItems,
+      },
+    };
+  }
+
+  if (zeroVarianceItems.length > 0) {
+    return {
+      alpha: NaN,
+      computationData: baseComputationData,
+      error: {
+        code: "PARTIAL_ZERO_VARIANCE",
+        message: `${zeroVarianceItems.length} item(s) have zero variance.`,
+        details: `Items with zero variance cannot contribute to reliability measurement as they show no variation across respondents.`,
+        affectedItems: zeroVarianceItems,
+      },
+    };
   }
 
   if (total_variance === 0) {
-    console.error(
-      "Error: total variance is zero, division by zero not allowed.",
-    );
-    return { alpha: "Invalid Data!" };
+    return {
+      alpha: NaN,
+      computationData: baseComputationData,
+      error: {
+        code: "ZERO_TOTAL_VARIANCE",
+        message:
+          "Total variance is zero (all respondents have the same total score).",
+        details: `All respondents have the same total score (${total_scores[0]}). This creates division by zero in the Cronbach's Alpha formula.`,
+        totalScore: total_scores[0],
+      },
+    };
   }
 
   // 4. Cronbach's Alpha formula:
@@ -96,18 +225,11 @@ export const calculateCronbachAlpha = (data) => {
   const alpha =
     (n_items / (n_items - 1)) * (1 - sum_item_variances / total_variance);
 
-  // Return data for visualization
+  // Return data for visualization with successful calculation
   return {
     alpha,
     computationData: {
-      n_items,
-      item_variances,
-      item_means,
-      total_scores,
-      total_mean,
-      total_variance,
-      sum_item_variances,
-      sum_total_scores,
+      ...baseComputationData,
       formula_parts: {
         k_over_k_minus_1: n_items / (n_items - 1),
         sum_item_var_over_total_var: sum_item_variances / total_variance,
