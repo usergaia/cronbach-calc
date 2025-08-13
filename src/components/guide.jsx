@@ -72,16 +72,12 @@ export const Guide = () => {
           <div>
             <div className="mb-1 flex items-center gap-2">
               <FaThumbsUp className="text-2xl text-green-500" />
-              <h2 className="text-lg font-bold text-green-700">Yay!</h2>
+              <h2 className="text-lg font-mono text-green-700">Yay!</h2>
             </div>
             <ul className="list-disc pl-8 text-xs text-green-900">
               <li className="m-2 flex items-center gap-2">
                 <FaCheck /> File must contain only a table of RAW numeric data
-                for a subscale.
-              </li>
-              <li className="m-2 flex items-center gap-2">
-                <FaCheck /> All cells must be filled with numbers (no blanks or
-                text).
+                of a subscale.
               </li>
               <li className="m-2 flex items-center gap-2">
                 <FaCheck /> Each row in file upload must have a consistent
@@ -92,15 +88,17 @@ export const Guide = () => {
           <div>
             <div className="mb-1 flex items-center gap-2">
               <FaThumbsDown className="text-2xl text-red-500" />
-              <h2 className="text-lg font-bold text-red-700">Nay!</h2>
+              <h2 className="text-lg font-mono text-red-700">Nay!</h2>
             </div>
             <ul className="list-disc pl-8 text-xs text-red-900">
               <li className="m-2 flex items-center gap-2">
                 <BiSolidErrorAlt /> Go less than <b>2x2</b> table dimension.
               </li>
               <li className="m-2 flex items-center gap-2">
-                <BiSolidErrorAlt /> Not double-checking your data before
-                submitting.
+                <BiSolidErrorAlt /> Empty or Non-Numeric cells.
+              </li>
+              <li className="m-2 flex items-center gap-2">
+                <BiSolidErrorAlt /> Not following the file format guidelines.
               </li>
             </ul>
           </div>

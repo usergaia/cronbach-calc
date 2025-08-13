@@ -1,23 +1,23 @@
-import "./styles/App.css";
-import { useState } from "react";
-import { NavBar } from "./components/nav.jsx";
-import { MainFeature } from "./components/main-feat.jsx";
-import { Guide } from "./components/guide.jsx";
-import { Footer } from "./components/footer.jsx";
-import { ResultContainer } from "./components/result.jsx";
+import './styles/App.css'
+import { useState } from 'react'
+import { NavBar } from './components/nav.jsx'
+import { MainFeature } from './components/input-cont.jsx'
+import { Guide } from './components/guide.jsx'
+import { Footer } from './components/footer.jsx'
+import { ResultContainer } from './components/result.jsx'
 
 function App() {
   // Lift state up to App level to share between components
-  const [matrix, setMatrix] = useState([]);
-  const [alpha, setAlpha] = useState(null);
+  const [matrix, setMatrix] = useState([])
+  const [alpha, setAlpha] = useState(null)
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="min-h-screen flex flex-col">
       <NavBar />
-      <section className="mt-2.5 flex py-13">
+      <section className="flex-1 py-13">
         <div className="flex items-start">
           <Guide />
-          <MainFeature
+          <MainFeature 
             matrix={matrix}
             setMatrix={setMatrix}
             alpha={alpha}
@@ -25,16 +25,15 @@ function App() {
           />
         </div>
       </section>
-
+      
       <section className="w-full">
-        <div className="mx-auto max-w-5xl px-4">
+        <div className="max-w-5xl mx-auto px-4">
           <ResultContainer matrix={matrix} alpha={alpha} />
         </div>
       </section>
-
       <Footer />
     </div>
-  );
+  )
 }
 
 export default App;

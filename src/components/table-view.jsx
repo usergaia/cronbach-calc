@@ -165,8 +165,6 @@ export const UpdateTable = ({ tableData, setTableData, nanCells = [] }) => {
           </div>
         </div>
       </div>
-
-      {/* Add Row Button - Positioned outside below the table */}
       <div className="mt-4 flex justify-center">
         <button
           type="button"

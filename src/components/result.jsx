@@ -143,7 +143,7 @@ export function ResultContainer({ matrix, alpha }) {
 
   return (
     <>
-      {fullScreenMatrix && (
+      {fullScreenMatrix && ( 
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/85">
           <div className="relative mx-auto flex h-[90vh] w-full max-w-5xl flex-col rounded-lg bg-white p-0 shadow-2xl">
             <div className="flex items-center justify-between rounded-t-lg border-b border-gray-200 bg-gray-50 px-6 py-4">
