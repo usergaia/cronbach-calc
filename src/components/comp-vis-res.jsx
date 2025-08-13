@@ -2,6 +2,7 @@ import { MdFullscreen } from "react-icons/md";
 import { TbReportAnalytics } from "react-icons/tb";
 import { IoStatsChart } from "react-icons/io5";
 import { IoIosWarning } from "react-icons/io";
+import { useBodyScrollLock } from "../hooks/scLock-body";
 
 export function ComputationVisualization({
   data,
@@ -11,6 +12,8 @@ export function ComputationVisualization({
   invalid,
   errorDetails,
 }) {
+
+  useBodyScrollLock(fullScreenAnalysis);
   if (!data || !computation) return null;
 
   // error display
@@ -81,15 +84,10 @@ export function ComputationVisualization({
               <TbReportAnalytics className="mr-1 inline-block text-xl" />
               Denomination
             </h4>
-            <button
-              className="ml-2 flex items-center justify-center rounded-full p-2 text-black hover:bg-gray-100"
-              onClick={onFullScreenAnalysisToggle}
-              title="Full Screen Data Analysis"
-            >
-              <MdFullscreen style={{ fontSize: "1.7rem" }} />
-            </button>
+
           </div>
         )}
+        
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
@@ -284,6 +282,8 @@ export function ComputationVisualization({
     </div>
   );
 
+  
+
   // calculate alpha value
   const calculatedAlpha =
     computation.total_variance > 0
@@ -293,6 +293,15 @@ export function ComputationVisualization({
 
   return (
     <div className="mt-8 w-full">
+      <div className="flex w-2/4 justify-center mb-4">
+        <button
+          className="flex items-center justify-center rounded-full p-2 text-black hover:bg-gray-100"
+          onClick={onFullScreenAnalysisToggle}
+          title="Full Screen Data Analysis"
+        >
+          <MdFullscreen style={{ fontSize: "1.7rem" }} />
+        </button>
+      </div>
       {fullScreenAnalysis && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/85">
           <div className="relative mx-auto flex h-[90vh] w-full max-w-5xl flex-col rounded-lg bg-white p-0 shadow-2xl">
@@ -324,7 +333,6 @@ export function ComputationVisualization({
               <h5 className="mb-6 font-medium text-green-800">
                 Cronbach's Alpha Formula
               </h5>
-
               <div className="space-y-6">
                 <div className="rounded-lg border-2 border-green-300 bg-white p-4 text-center">
                   <div className="font-mono text-lg text-gray-800">

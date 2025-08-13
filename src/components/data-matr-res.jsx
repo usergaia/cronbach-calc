@@ -1,7 +1,10 @@
 import { MdFullscreen } from "react-icons/md";
+import { useBodyScrollLock } from "../hooks/scLock-body";
 
 export function DataMatrix({ data, inFullScreen = false, onFullScreenToggle }) {
   if (!data || !Array.isArray(data)) return null;
+
+  useBodyScrollLock(inFullScreen);
 
   return (
     <div className={`w-full ${inFullScreen ? "h-full" : "mx-auto max-w-4xl"}`}>
