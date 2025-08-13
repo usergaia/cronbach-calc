@@ -1,12 +1,46 @@
-# React + Vite
+# Cronbach's Alpha Calculator
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> A lightweight web app tool to calculate Cronbach's alpha (α) that accepts CSV, XLSX, and XLS files.
 
-Currently, two official plugins are available:
+<p align="center">
+ <img src="lp.png" alt="comparison image" />
+</p>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+*Check it out:* [link](link)
 
-## Expanding the ESLint configuration
+## Supported File Extensions
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **XLSX / XLS**
+- **CSV**
+
+## Features
+
+- **Input Modification** - Edit and adjust data from file uploads or manual input
+- **Formula Breakdown** - View step-by-step calculation process
+- **Statistical Analysis** - Detailed variance and mean calculations
+
+## Built With
+
+- **React JS + Vite (SWC)**
+- **TailwindCSS**
+
+## TODO
+
+- [ ] better table navigation for large datasets to improve ux
+- [ ] other reliability assessment methods (?)
+
+## Validation
+
+Verified against existing calculators using [publicly available data](https://canva.link) for accuracy testing.
+
+## Notes
+
+This is a personal project built to learn web frameworks, particularly JavaScript, and TailwindCSS styling. Gained experience with JavaScript fundamental syntax, Tailwind commands, code formatting tools (`eslint`, `prettier`), and various deployment platforms.
+
+*Send your feedbacks [here](link).*
+
+## Credits
+
+- [Uedufy](https://uedufy.com/how-to-calculate-cronbachs-alpha-in-excel/) - Interpretation insights and reference tables
+- [Eugene O'Loughlin](https://youtu.be/Hgf22LMcOHc) - More in-depth guidance and sample data for validation
+- Other Cronbach's alpha calculators - Used for cross-validation testing
