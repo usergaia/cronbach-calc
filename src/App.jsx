@@ -14,7 +14,7 @@ function App() {
   return (
     <div className="flex min-h-screen flex-col">
       <NavBar />
-      <section className="mt-1 flex py-13">
+      <section className="mt-2.5 flex py-13">
         <div className="flex items-start">
           <Guide />
           <MainFeature

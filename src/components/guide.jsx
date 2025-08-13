@@ -76,7 +76,8 @@ export const Guide = () => {
             </div>
             <ul className="list-disc pl-8 text-xs text-green-900">
               <li className="m-2 flex items-center gap-2">
-                <FaCheck /> File must contain only a table of RAW data
+                <FaCheck /> File must contain only a table of RAW numeric data
+                for a subscale.
               </li>
               <li className="m-2 flex items-center gap-2">
                 <FaCheck /> All cells must be filled with numbers (no blanks or

@@ -75,7 +75,6 @@ export const MainFeature = ({ setMatrix, setAlpha }) => {
     setConfirmedCol(col);
     setTableData(Array.from({ length: row }, () => Array(col).fill("")));
     setErrEF(null);
-    console.log("Confirmed:", row, col);
   };
 
   {
@@ -277,39 +276,31 @@ export const MainFeature = ({ setMatrix, setAlpha }) => {
 
         {/* full screen modal for better qol in table view */}
         {showTableFullScreen && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/85">
-            <div className="relative mx-auto flex h-[90vh] w-full max-w-5xl flex-col rounded-lg bg-white p-0 shadow-2xl">
-              {/* Header */}
-              <div className="flex items-center justify-between rounded-t-lg border-b border-gray-200 bg-gray-50 px-6 py-4">
-                <h2 className="text-lg font-semibold text-gray-800">
-                  Data Matrix
-                </h2>
-                <button
-                  type="button"
-                  className="right rounded-full bg-gray-200 p-2 text-2xl text-gray-600 transition-colors hover:bg-red-100 hover:text-red-600"
-                  onClick={() => setShowTableFullScreen(false)}
-                  title="Close full screen table"
-                  style={{ lineHeight: 1 }}
-                >
-                  ×
-                </button>
-              </div>
-              {/* Scrollable Table Area */}
-              <div className="flex-1 overflow-auto rounded-b-lg bg-white p-6">
-                <CreateTable
-                  row={2}
-                  col={2}
-                  tableData={tableData}
-                  setTableData={setTableData}
-                  nanCells={nanCells}
-                />
-              </div>
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90">
+            {/* Floating close button */}
+            <button
+              type="button"
+              className="fixed top-6 right-8 z-50 rounded-full bg-gray-200 p-3 text-3xl text-gray-600 shadow-lg transition-colors hover:bg-red-100 hover:text-red-600"
+              onClick={() => setShowTableFullScreen(false)}
+              title="Close full screen table"
+              style={{ lineHeight: 1 }}
+            >
+              ×
+            </button>
+            <div className="w-full max-w-6xl px-2">
+              <CreateTable
+                row={2}
+                col={2}
+                tableData={tableData}
+                setTableData={setTableData}
+                nanCells={nanCells}
+              />
             </div>
           </div>
         )}
 
         {errCells ? (
-          <div className="mt-1 text-xs text-red-500">{errCells}</div>
+          <div className="mt-1 mb-4 text-xs text-red-500">{errCells}</div>
         ) : null}
 
         <button
