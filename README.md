@@ -37,7 +37,7 @@ Verified against existing <a href="https://www.canva.com/design/DAGv_1uZTjU/5Wjq
 
 This is a personal project built to learn web frameworks, particularly JavaScript, and TailwindCSS styling. Gained experience with JavaScript fundamental syntax, Tailwind commands, code formatting tools (`eslint`, `prettier`), various deployment platforms, and <a href="https://react-icons.github.io/react-icons/" target="_blank" rel="noopener noreferrer">react-icons</a>, such a great find.
 
-*Send your feedbacks <a href="link" target="_blank" rel="noopener noreferrer">here</a>.*
+*Send your feedbacks <a href="https://tally.so/r/m6BXP5" target="_blank" rel="noopener noreferrer">here</a>.*
 
 ## Credits
 
