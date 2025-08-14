@@ -37,7 +37,7 @@ Verified against existing <a href="https://www.canva.com/design/DAGv_1uZTjU/5Wjq
 
 This is a personal project built to learn web frameworks, particularly JavaScript, and TailwindCSS styling. Gained experience with JavaScript fundamental syntax, Tailwind commands, code formatting tools (`eslint`, `prettier`), various deployment platforms, and <a href="https://react-icons.github.io/react-icons/" target="_blank" rel="noopener noreferrer">react-icons</a>, such a great find.
 
-*Send your feedbacks <a href="link" target="_blank" rel="noopener noreferrer">here</a>.*
+*Send your feedbacks <a href="https://tally.so/r/m6BXP5" target="_blank" rel="noopener noreferrer">here</a>.*
 
 ## Credits
 
@@ -46,3 +46,4 @@ This is a personal project built to learn web frameworks, particularly JavaScrip
 - <a href="https://www.wessa.net/rwasp_cronbach.wasp#cite" target="_blank" rel="noopener noreferrer">Wessa, P. (2025), Free Statistics Software, Office for Research Development and Education</a> - validation
 - <a href="https://www.cogn-iq.org/statistical-tools/cronbach-alpha.html" target="_blank" rel="noopener noreferrer">Cogn-IQ</a> - validation  
 - <a href="https://datatab.net/statistics-calculator/reliability-analysis/cronbachs-alpha-calculator?example=Cronbachs_Alpha" target="_blank" rel="noopener noreferrer">Datalab</a> - validation  
+
