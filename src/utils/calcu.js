@@ -94,7 +94,6 @@ export const calculateCronbachAlpha = (data) => {
     }
   }
 
-  // Calculate basic statistics first (always needed for denomination table)
   // 1. Calculate total score for each respondent (row)
   const total_scores = [];
   for (let i = 0; i < data.length; i++) {
@@ -136,7 +135,7 @@ export const calculateCronbachAlpha = (data) => {
     const variance = sqDiffSum / (count - 1);
     item_variances.push(variance);
 
-    // Track zero variance items with details
+    // Track zero variance items
     if (variance === 0) {
       zeroVarianceItems.push({
         item: col + 1,
@@ -146,7 +145,7 @@ export const calculateCronbachAlpha = (data) => {
     }
   }
 
-  // 3. Calculate total score statistics
+  // 3. Calculate total score
   // Calculate mean of total scores
   const total_mean = sum_total_scores / total_scores.length;
 
@@ -164,7 +163,7 @@ export const calculateCronbachAlpha = (data) => {
     sum_item_variances += item_variances[i];
   }
 
-  // Create base computation data (always return this for denomination table)
+  // Create base computation data
   const baseComputationData = {
     n_items,
     n_respondents,
@@ -178,7 +177,7 @@ export const calculateCronbachAlpha = (data) => {
     zeroVarianceItems,
   };
 
-  // Enhanced error checking with detailed information and computation data
+  // error responses
   if (item_variances.every((v) => v === 0)) {
     return {
       alpha: NaN,

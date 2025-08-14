@@ -40,3 +40,14 @@
 .read-the-docs {
   color: #888;
 }
+
+@media (max-width: 1023px) {
+  .force-desktop {
+    width: 1024px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-right: 30px;
+    overflow-x: auto;
+  }
+}
+

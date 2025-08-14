@@ -10,12 +10,11 @@ import { Analytics } from '@vercel/analytics/react';
 
 
 function App() {
-  // Lift state up to App level to share between components
   const [matrix, setMatrix] = useState([]);
   const [alpha, setAlpha] = useState(null);
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col force-desktop">
       <NavBar />
       <section className="flex-1 py-13">
         <div className="flex items-start">
