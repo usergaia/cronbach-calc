@@ -148,6 +148,7 @@ export const MainFeature = ({ setMatrix, setAlpha }) => {
           <div className="mt-2 flex items-center gap-3">
             <input
               id="customFileInput"
+              accept=".xlsx,.xls,.csv" 
               type="file"
               className="hidden"
               onChange={async (e) => {
