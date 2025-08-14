@@ -31,7 +31,6 @@ export const MainFeature = ({ setMatrix, setAlpha }) => {
   const [colError, setColError] = useState("");
   const [errCells, setErrCells] = useState(null);
 
-
   useBodyScrollLock(showTableFullScreen);
 
   const handleRowChange = (e) => {
@@ -148,7 +147,7 @@ export const MainFeature = ({ setMatrix, setAlpha }) => {
           <div className="mt-2 flex items-center gap-3">
             <input
               id="customFileInput"
-              accept=".xlsx,.xls,.csv" 
+              accept=".xlsx,.xls,.csv"
               type="file"
               className="hidden"
               onChange={async (e) => {
@@ -291,7 +290,7 @@ export const MainFeature = ({ setMatrix, setAlpha }) => {
             >
               ×
             </button>
-            <div className="w-full max-w-6xl px-2 scale-100">
+            <div className="w-full max-w-6xl scale-100 px-2">
               <CreateTable
                 row={2}
                 col={2}

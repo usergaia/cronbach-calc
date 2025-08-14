@@ -72,7 +72,7 @@ export const Guide = () => {
           <div>
             <div className="mb-1 flex items-center gap-2">
               <FaThumbsUp className="text-2xl text-green-500" />
-              <h2 className="text-lg font-mono text-green-700">Yay!</h2>
+              <h2 className="font-mono text-lg text-green-700">Yay!</h2>
             </div>
             <ul className="list-disc pl-8 text-xs text-green-900">
               <li className="m-2 flex items-center gap-2">
@@ -88,7 +88,7 @@ export const Guide = () => {
           <div>
             <div className="mb-1 flex items-center gap-2">
               <FaThumbsDown className="text-2xl text-red-500" />
-              <h2 className="text-lg font-mono text-red-700">Nay!</h2>
+              <h2 className="font-mono text-lg text-red-700">Nay!</h2>
             </div>
             <ul className="list-disc pl-8 text-xs text-red-900">
               <li className="m-2 flex items-center gap-2">

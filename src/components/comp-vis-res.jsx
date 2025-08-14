@@ -12,7 +12,6 @@ export function ComputationVisualization({
   invalid,
   errorDetails,
 }) {
-
   useBodyScrollLock(fullScreenAnalysis);
   if (!data || !computation) return null;
 
@@ -39,9 +38,9 @@ export function ComputationVisualization({
             ? "border-orange-500 bg-orange-50"
             : "border-red-500 bg-red-50"
         } mb-6 p-4`}
-      > 
+      >
         <div className="flex">
-         <div className="mr-3 flex-shrink-0 text-xl">{getErrorIcon()}</div>
+          <div className="mr-3 flex-shrink-0 text-xl">{getErrorIcon()}</div>
           <div className="flex-1">
             <h3
               className={`text-sm font-medium ${
@@ -84,10 +83,9 @@ export function ComputationVisualization({
               <TbReportAnalytics className="mr-1 inline-block text-xl" />
               Denomination
             </h4>
-
           </div>
         )}
-        
+
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
@@ -137,11 +135,12 @@ export function ComputationVisualization({
                     key={colIdx}
                     className="px-3 py-2 text-center font-semibold text-green-700"
                   >
-                    {data.reduce((sum, row) => sum + row[colIdx], 0)} 
+                    {data.reduce((sum, row) => sum + row[colIdx], 0)}
                   </td>
                 ))}
                 <td className="bg-green-200 px-3 py-2 text-center font-bold text-green-800">
-                  {computation.sum_total_scores} {/* sum of responses for each item */}
+                  {computation.sum_total_scores}{" "}
+                  {/* sum of responses for each item */}
                 </td>
               </tr>
             </tbody>
@@ -291,7 +290,7 @@ export function ComputationVisualization({
 
   return (
     <div className="mt-8 w-full">
-      <div className="flex w-2/4 justify-center mb-4">
+      <div className="mb-4 flex w-2/4 justify-center">
         <button
           className="flex items-center justify-center rounded-full p-2 text-black hover:bg-gray-100"
           onClick={onFullScreenAnalysisToggle}
@@ -370,20 +369,25 @@ export function ComputationVisualization({
                       <>
                         <div className="font-mono text-gray-700">
                           Σσᵢ²/σₜ² = {computation.sum_item_variances.toFixed(6)}
-                          /0 = <span className="font-bold text-red-600">Undefined</span>
+                          /0 ={" "}
+                          <span className="font-bold text-red-600">
+                            Undefined
+                          </span>
                         </div>
-                        <div className="mt-2 text-xs text-red-600 font-semibold">
-                          Cannot continue: Total variance is 0. Calculation is invalid.
+                        <div className="mt-2 text-xs font-semibold text-red-600">
+                          Cannot continue: Total variance is 0. Calculation is
+                          invalid.
                         </div>
                         <div className="mt-4 text-base font-bold text-red-700">
-                          Cronbach's Alpha: <span className="ml-2">Undefined</span>
+                          Cronbach's Alpha:{" "}
+                          <span className="ml-2">Undefined</span>
                         </div>
                       </>
                     ) : (
                       <>
                         <div className="font-mono text-gray-700">
-                          Σσᵢ²/σₜ² = {computation.sum_item_variances.toFixed(6)}/
-                          {computation.total_variance.toFixed(6)} ={" "}
+                          Σσᵢ²/σₜ² = {computation.sum_item_variances.toFixed(6)}
+                          /{computation.total_variance.toFixed(6)} ={" "}
                           <span className="font-bold text-purple-600">
                             {(
                               computation.sum_item_variances /
@@ -392,7 +396,7 @@ export function ComputationVisualization({
                           </span>
                         </div>
 
-                        <div className="rounded-lg border-2 border-green-300 bg-white p-4 text-center mt-4">
+                        <div className="mt-4 rounded-lg border-2 border-green-300 bg-white p-4 text-center">
                           <div className="mb-2 text-sm font-semibold text-orange-800">
                             Step 3: Calculate (1 - Σσᵢ²/σₜ²)
                           </div>
@@ -415,7 +419,7 @@ export function ComputationVisualization({
                           </div>
                         </div>
 
-                        <div className="rounded-lg border-2 border-green-400 bg-gradient-to-r from-green-100 to-emerald-100 p-4 mt-4">
+                        <div className="mt-4 rounded-lg border-2 border-green-400 bg-gradient-to-r from-green-100 to-emerald-100 p-4">
                           <div className="mb-2 text-sm font-semibold text-green-800">
                             Final Result:
                           </div>
@@ -444,8 +448,8 @@ export function ComputationVisualization({
                           </div>
                           {calculatedAlpha === 0 && (
                             <div className="mt-2 text-xs text-gray-600">
-                              Note: α = 0 indicates no internal consistency between
-                              items
+                              Note: α = 0 indicates no internal consistency
+                              between items
                             </div>
                           )}
                         </div>

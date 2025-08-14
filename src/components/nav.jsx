@@ -7,11 +7,11 @@ export const NavBar = () => {
     <nav className="navbar shadow-base-300/20 fixed top-0 left-0 z-50 m-0 w-full rounded-none border-b-2 border-zinc-400 bg-neutral-300 px-8 py-4 shadow-sm">
       <div className="flex w-full items-center">
         <div className="flex flex-row items-center gap-3">
-            <SlCalculator className="text-2xl text-black" />
-            <span className="ml-3 text-2xl font-bold whitespace-nowrap text-black text-shadow-lg/30">
-              <span className="text-yellow-500">C</span>ronbach
-              <span className="text-[#ffda03]">C</span>alculator
-            </span>
+          <SlCalculator className="text-2xl text-black" />
+          <span className="ml-3 text-2xl font-bold whitespace-nowrap text-black text-shadow-lg/30">
+            <span className="text-yellow-500">C</span>ronbach
+            <span className="text-[#ffda03]">C</span>alculator
+          </span>
         </div>
         <div className="ml-auto flex items-center gap-6">
           <a
