@@ -92,7 +92,7 @@ export const Guide = () => {
             </div>
             <ul className="list-disc pl-8 text-xs text-red-900">
               <li className="m-2 flex items-center gap-2">
-                <BiSolidErrorAlt /> Go less than <b>2x2</b> table dimension.
+                <BiSolidErrorAlt /> Go less than 2x2 table dimension.
               </li>
               <li className="m-2 flex items-center gap-2">
                 <BiSolidErrorAlt /> Empty or Non-Numeric cells.
