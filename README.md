@@ -41,9 +41,10 @@ This is a personal project built to learn web frameworks, particularly JavaScrip
 
 ## Credits
 
-- <a href="https://uedufy.com/how-to-calculate-cronbachs-alpha-in-excel/" target="_blank" rel="noopener noreferrer">Uedufy</a> - Interpretation insights and reference tables  
-- <a href="https://youtu.be/Hgf22LMcOHc" target="_blank" rel="noopener noreferrer">Eugene O'Loughlin</a> - More in-depth guidance and sample data for validation  
-- <a href="https://www.wessa.net/rwasp_cronbach.wasp#cite" target="_blank" rel="noopener noreferrer">Wessa, P. (2025), Free Statistics Software, Office for Research Development and Education</a> - validation
-- <a href="https://www.cogn-iq.org/statistical-tools/cronbach-alpha.html" target="_blank" rel="noopener noreferrer">Cogn-IQ</a> - validation  
-- <a href="https://datatab.net/statistics-calculator/reliability-analysis/cronbachs-alpha-calculator?example=Cronbachs_Alpha" target="_blank" rel="noopener noreferrer">Datalab</a> - validation  
+- [Uedufy](https://uedufy.com/how-to-calculate-cronbachs-alpha-in-excel/) — Interpretation reference tables, validation reference
+- [Eugene O'Loughlin](https://youtu.be/Hgf22LMcOHc) — Validation reference  
+- [Wessa, P. (2025), *Free Statistics Software*, Office for Research Development and Education](https://www.wessa.net/rwasp_cronbach.wasp#cite) — Validation reference  
+- [Cogn-IQ](https://www.cogn-iq.org/statistical-tools/cronbach-alpha.html) — Validation reference  
+- [Datalab](https://datatab.net/statistics-calculator/reliability-analysis/cronbachs-alpha-calculator?example=Cronbachs_Alpha) — Validation reference  
+
 
