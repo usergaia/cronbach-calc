@@ -6,7 +6,7 @@
  <img src="lp.png" alt="comparison image" />
 </p>
 
-*Check it out:* [link](link)
+*Check it out:* <a href="link" target="_blank" rel="noopener noreferrer">link</a>
 
 ## Supported File Extensions
 
@@ -31,17 +31,17 @@
 
 ## Validation
 
-Verified against existing [calculators and references](https://www.canva.com/design/DAGv_1uZTjU/5WjqaU-uwj2cLHTULlKvFQ/view?utm_content=DAGv_1uZTjU&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=ha097b70846) for accuracy testing.
+Verified against existing <a href="https://www.canva.com/design/DAGv_1uZTjU/5WjqaU-uwj2cLHTULlKvFQ/view?utm_content=DAGv_1uZTjU&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=ha097b70846" target="_blank" rel="noopener noreferrer">calculators and references</a> for accuracy testing.
 
 ## Notes
 
-This is a personal project built to learn web frameworks, particularly JavaScript, and TailwindCSS styling. Gained experience with JavaScript fundamental syntax, Tailwind commands, code formatting tools (`eslint`, `prettier`), various deployment platforms, and [react-icons](https://react-icons.github.io/react-icons/), such a great find.
+This is a personal project built to learn web frameworks, particularly JavaScript, and TailwindCSS styling. Gained experience with JavaScript fundamental syntax, Tailwind commands, code formatting tools (`eslint`, `prettier`), various deployment platforms, and <a href="https://react-icons.github.io/react-icons/" target="_blank" rel="noopener noreferrer">react-icons</a>, such a great find.
 
-*Send your feedbacks [here](link).*
+*Send your feedbacks <a href="link" target="_blank" rel="noopener noreferrer">here</a>.*
 
 ## Credits
 
-- [Uedufy](https://uedufy.com/how-to-calculate-cronbachs-alpha-in-excel/) - Interpretation insights and reference tables
-- [Eugene O'Loughlin](https://youtu.be/Hgf22LMcOHc) - More in-depth guidance and sample data for validation
-- [Wessa, P. (2025), Free Statistics Software, Office for Research Development and Education](https://www.wessa.net/rwasp_cronbach.wasp#cite) - validation
+- <a href="https://uedufy.com/how-to-calculate-cronbachs-alpha-in-excel/" target="_blank" rel="noopener noreferrer">Uedufy</a> - Interpretation insights and reference tables  
+- <a href="https://youtu.be/Hgf22LMcOHc" target="_blank" rel="noopener noreferrer">Eugene O'Loughlin</a> - More in-depth guidance and sample data for validation  
+- <a href="https://www.wessa.net/rwasp_cronbach.wasp#cite" target="_blank" rel="noopener noreferrer">Wessa, P. (2025), Free Statistics Software, Office for Research Development and Education</a> - validation  
 - Other Cronbach's alpha calculators - Used for validation testing
