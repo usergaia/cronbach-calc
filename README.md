@@ -6,7 +6,7 @@
  <img src="lp.png" alt="comparison image" />
 </p>
 
-*Check it out:* <a href="link" target="_blank" rel="noopener noreferrer">link</a>
+*Check it out:* [https://cronbach-calc.vercel.app/](https://cronbach-calc.vercel.app/)
 
 ## Supported File Extensions
 
