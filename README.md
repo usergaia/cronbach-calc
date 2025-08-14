@@ -31,7 +31,7 @@
 
 ## Validation
 
-Verified against existing calculators using [publicly available data](https://canva.link) for accuracy testing.
+Verified against existing [calculators and references](https://www.canva.com/design/DAGv_1uZTjU/5WjqaU-uwj2cLHTULlKvFQ/view?utm_content=DAGv_1uZTjU&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=ha097b70846) for accuracy testing.
 
 ## Notes
 
@@ -43,4 +43,5 @@ This is a personal project built to learn web frameworks, particularly JavaScrip
 
 - [Uedufy](https://uedufy.com/how-to-calculate-cronbachs-alpha-in-excel/) - Interpretation insights and reference tables
 - [Eugene O'Loughlin](https://youtu.be/Hgf22LMcOHc) - More in-depth guidance and sample data for validation
-- Other Cronbach's alpha calculators - Used for cross-validation testing
+- [Wessa, P. (2025), Free Statistics Software, Office for Research Development and Education](https://www.wessa.net/rwasp_cronbach.wasp#cite) - validation
+- Other Cronbach's alpha calculators - Used for validation testing
