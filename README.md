@@ -33,9 +33,11 @@
 
 Verified against existing <a href="https://www.canva.com/design/DAGv_1uZTjU/5WjqaU-uwj2cLHTULlKvFQ/view?utm_content=DAGv_1uZTjU&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=ha097b70846" target="_blank" rel="noopener noreferrer">calculators and references</a> for accuracy testing.
 
+Sample [input file](./sample.xlsx). The header row is intentionally included to simulate an error; remove it to retain only the raw data.
+
 ## Notes
 
-This is a personal project built to learn web frameworks, particularly JavaScript, and TailwindCSS styling. Gained experience with JavaScript fundamental syntax, Tailwind commands, code formatting tools (`eslint`, `prettier`), various deployment platforms, and <a href="https://react-icons.github.io/react-icons/" target="_blank" rel="noopener noreferrer">react-icons</a>, such a great find.
+I built this project mainly to learn my way around web frameworks. It gave me plenty of practice with JavaScript basics, TailwindCSS, formatting tools like `eslint`/`prettier`, SEO/meta tag setup, and platform deployment. I also discovered [react-icons](https://react-icons.github.io/react-icons/) - a really nice little gem. 
 
 *Send your feedbacks <a href="https://tally.so/r/m6BXP5" target="_blank" rel="noopener noreferrer">here</a>.*
 
