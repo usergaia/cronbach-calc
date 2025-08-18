@@ -280,7 +280,7 @@ export const MainFeature = ({ setMatrix, setAlpha }) => {
         {/* full screen modal for better qol in table view */}
         {showTableFullScreen && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90">
-            {/* Floating close button */}
+            {/* floating close button */}
             <button
               type="button"
               className="fixed top-6 right-8 z-50 rounded-full bg-gray-200 p-3 text-3xl text-gray-600 shadow-lg transition-colors hover:bg-red-100 hover:text-red-600"

@@ -80,11 +80,11 @@ export const getAlpha = (file) => {
 };
 
 export const checkValidity = (matrix, expectedCol) => {
-  // Check for minimum 2x2
+  // check for minimum 2x2
   if (!Array.isArray(matrix) || matrix.length < 2 || expectedCol < 2) {
     return false;
   }
-  // Check for inconsistent row lengths
+  // check for inconsistent row lengths
   if (
     matrix.some((row) => {
       if (row.length !== expectedCol) {

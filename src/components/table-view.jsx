@@ -23,7 +23,7 @@ export const CreateTable = ({
   }, [row, col, setTableData, tableData.length]);
 
   return (
-    // Render the table
+    // render the table
     <UpdateTable
       tableData={tableData}
       setTableData={setTableData}
@@ -74,13 +74,12 @@ export const UpdateTable = ({ tableData, setTableData, nanCells = [] }) => {
 
   if (!tableData || tableData.length === 0) return null;
 
-  // Helper to check if a cell is in nanCells
+  // check if a cell is in nanCells
   const isNanCell = (r, c) =>
     nanCells.some(([row, col]) => row === r && col === c);
 
   return (
     <div className="relative mx-auto w-full max-w-6xl p-6 pr-20">
-      {/* Add Column Button - Positioned outside on the right */}
       <button
         type="button"
         onClick={addCol}
@@ -94,7 +93,6 @@ export const UpdateTable = ({ tableData, setTableData, nanCells = [] }) => {
       <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-lg">
         <div className="overflow-x-auto">
           <div className="relative inline-block min-w-full">
-            {/* Header with column controls */}
             <div className="border-b border-slate-200 bg-gradient-to-r from-slate-50 to-slate-100 px-4 py-4">
               <div
                 className="grid items-center gap-2"
@@ -121,7 +119,7 @@ export const UpdateTable = ({ tableData, setTableData, nanCells = [] }) => {
               </div>
             </div>
 
-            {/* Table body */}
+            {/* table body */}
             <div
               className="relative flex flex-col p-4"
               style={{ maxHeight: "520px" }}
@@ -132,7 +130,7 @@ export const UpdateTable = ({ tableData, setTableData, nanCells = [] }) => {
                     key={r}
                     className="mb-3 flex items-center gap-2 last:mb-0"
                   >
-                    {/* Row delete button */}
+                    {/* row delete button */}
                     <div className="m-2 flex w-10 justify-center">
                       <button
                         type="button"
@@ -144,7 +142,7 @@ export const UpdateTable = ({ tableData, setTableData, nanCells = [] }) => {
                       </button>
                     </div>
 
-                    {/* Row cells */}
+                    {/* row cells */}
                     {row.map((cell, c) => (
                       <div key={c} className="m-2 min-w-24 flex-1">
                         <input

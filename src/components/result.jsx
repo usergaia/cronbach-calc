@@ -4,7 +4,7 @@ import { DataMatrix } from "./data-matr-res.jsx";
 import { ComputationVisualization } from "./comp-vis-res.jsx";
 
 export function ResultContainer({ matrix, alpha }) {
-  // State management
+  // state variables
   const [showSolution, setShowSolution] = useState(false);
   const [fullScreenMatrix, setFullScreenMatrix] = useState(false);
   const [fullScreenAnalysis, setFullScreenAnalysis] = useState(false);
