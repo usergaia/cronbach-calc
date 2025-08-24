@@ -38,9 +38,9 @@ export function ComputationVisualization({
             ? "border-orange-500 bg-orange-50"
             : "border-red-500 bg-red-50"
         } mb-6 p-4`}
-      >
+      > 
         <div className="flex">
-          <div className="mr-3 flex-shrink-0 text-xl">{getErrorIcon()}</div>
+         <div className="mr-3 flex-shrink-0 text-xl">{getErrorIcon()}</div>
           <div className="flex-1">
             <h3
               className={`text-sm font-medium ${
@@ -83,9 +83,15 @@ export function ComputationVisualization({
               <TbReportAnalytics className="mr-1 inline-block text-xl" />
               Denomination
             </h4>
+            <button
+              className="ml-2 flex items-center justify-center rounded-full p-2 text-black hover:bg-gray-100"
+              onClick={onFullScreenAnalysisToggle}
+              title="Full Screen Data Analysis"
+            >
+              <MdFullscreen style={{ fontSize: "1.7rem" }} />
+            </button>
           </div>
         )}
-
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
@@ -135,12 +141,11 @@ export function ComputationVisualization({
                     key={colIdx}
                     className="px-3 py-2 text-center font-semibold text-green-700"
                   >
-                    {data.reduce((sum, row) => sum + row[colIdx], 0)}
+                    {data.reduce((sum, row) => sum + row[colIdx], 0)} 
                   </td>
                 ))}
                 <td className="bg-green-200 px-3 py-2 text-center font-bold text-green-800">
-                  {computation.sum_total_scores}{" "}
-                  {/* sum of responses for each item */}
+                  {computation.sum_total_scores} {/* sum of responses for each item */}
                 </td>
               </tr>
             </tbody>
@@ -290,15 +295,6 @@ export function ComputationVisualization({
 
   return (
     <div className="mt-8 w-full">
-      <div className="mb-4 flex w-2/4 justify-center">
-        <button
-          className="flex items-center justify-center rounded-full p-2 text-black hover:bg-gray-100"
-          onClick={onFullScreenAnalysisToggle}
-          title="Full Screen Data Analysis"
-        >
-          <MdFullscreen style={{ fontSize: "1.7rem" }} />
-        </button>
-      </div>
       {fullScreenAnalysis && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/85">
           <div className="relative mx-auto flex h-[90vh] w-full max-w-5xl flex-col rounded-lg bg-white p-0 shadow-2xl">
@@ -330,6 +326,7 @@ export function ComputationVisualization({
               <h5 className="mb-6 font-medium text-green-800">
                 Cronbach's Alpha Formula
               </h5>
+
               <div className="space-y-6">
                 <div className="rounded-lg border-2 border-green-300 bg-white p-4 text-center">
                   <div className="font-mono text-lg text-gray-800">
@@ -374,86 +371,90 @@ export function ComputationVisualization({
                             Undefined
                           </span>
                         </div>
-                        <div className="mt-2 text-xs font-semibold text-red-600">
-                          Cannot continue: Total variance is 0. Calculation is
-                          invalid.
-                        </div>
-                        <div className="mt-4 text-base font-bold text-red-700">
-                          Cronbach's Alpha:{" "}
-                          <span className="ml-2">Undefined</span>
+                        <div className="mt-2 text-xs text-red-600">
+                          Note: Using 0 for final calculation since ratio is undefined
                         </div>
                       </>
                     ) : (
-                      <>
-                        <div className="font-mono text-gray-700">
-                          Σσᵢ²/σₜ² = {computation.sum_item_variances.toFixed(6)}
-                          /{computation.total_variance.toFixed(6)} ={" "}
-                          <span className="font-bold text-purple-600">
-                            {(
-                              computation.sum_item_variances /
+                      <div className="font-mono text-gray-700">
+                        Σσᵢ²/σₜ² = {computation.sum_item_variances.toFixed(6)}/
+                        {computation.total_variance.toFixed(6)} ={" "}
+                        <span className="font-bold text-purple-600">
+                          {(
+                            computation.sum_item_variances /
+                            computation.total_variance
+                          ).toFixed(6)}
+                        </span>
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="rounded-lg border-2 border-green-300 bg-white p-4 text-center">
+                    <div className="mb-2 text-sm font-semibold text-orange-800">
+                      Step 3: Calculate (1 - Σσᵢ²/σₜ²)
+                    </div>
+                    {computation.total_variance === 0 ? (
+                      <div className="font-mono text-gray-700">
+                        Using default value:{" "}
+                        <span className="font-bold text-orange-600">
+                          0.000000
+                        </span>
+                      </div>
+                    ) : (
+                      <div className="font-mono text-gray-700">
+                        1 -{" "}
+                        <span className="font-bold text-purple-600">
+                          {(
+                            computation.sum_item_variances /
+                            computation.total_variance
+                          ).toFixed(6)}
+                        </span>{" "}
+                        ={" "}
+                        <span className="font-bold text-orange-600">
+                          {(
+                            1 -
+                            computation.sum_item_variances /
                               computation.total_variance
-                            ).toFixed(6)}
-                          </span>
-                        </div>
+                          ).toFixed(6)}
+                        </span>
+                      </div>
+                    )}
+                  </div>
 
-                        <div className="mt-4 rounded-lg border-2 border-green-300 bg-white p-4 text-center">
-                          <div className="mb-2 text-sm font-semibold text-orange-800">
-                            Step 3: Calculate (1 - Σσᵢ²/σₜ²)
-                          </div>
-                          <div className="font-mono text-gray-700">
-                            1 -{" "}
-                            <span className="font-bold text-purple-600">
-                              {(
-                                computation.sum_item_variances /
+                  <div className="rounded-lg border-2 border-green-400 bg-gradient-to-r from-green-100 to-emerald-100 p-4">
+                    <div className="mb-2 text-sm font-semibold text-green-800">
+                      Final Result:
+                    </div>
+                    <div className="font-mono text-gray-700">
+                      α ={" "}
+                      <span className="font-bold text-blue-600">
+                        {(
+                          computation.n_items /
+                          (computation.n_items - 1)
+                        ).toFixed(6)}
+                      </span>{" "}
+                      ×{" "}
+                      <span className="font-bold text-orange-600">
+                        {computation.total_variance === 0
+                          ? "0.000000"
+                          : (
+                              1 -
+                              computation.sum_item_variances /
                                 computation.total_variance
-                              ).toFixed(6)}
-                            </span>{" "}
-                            ={" "}
-                            <span className="font-bold text-orange-600">
-                              {(
-                                1 -
-                                computation.sum_item_variances /
-                                  computation.total_variance
-                              ).toFixed(6)}
-                            </span>
-                          </div>
-                        </div>
-
-                        <div className="mt-4 rounded-lg border-2 border-green-400 bg-gradient-to-r from-green-100 to-emerald-100 p-4">
-                          <div className="mb-2 text-sm font-semibold text-green-800">
-                            Final Result:
-                          </div>
-                          <div className="font-mono text-gray-700">
-                            α ={" "}
-                            <span className="font-bold text-blue-600">
-                              {(
-                                computation.n_items /
-                                (computation.n_items - 1)
-                              ).toFixed(6)}
-                            </span>{" "}
-                            ×{" "}
-                            <span className="font-bold text-orange-600">
-                              {(
-                                1 -
-                                computation.sum_item_variances /
-                                  computation.total_variance
-                              ).toFixed(6)}{" "}
-                            </span>{" "}
-                            ={" "}
-                            <span className="border-2 border-gray-600 text-2xl font-bold text-black">
-                              <span className="m-2">
-                                {calculatedAlpha.toFixed(6)}
-                              </span>
-                            </span>
-                          </div>
-                          {calculatedAlpha === 0 && (
-                            <div className="mt-2 text-xs text-gray-600">
-                              Note: α = 0 indicates no internal consistency
-                              between items
-                            </div>
-                          )}
-                        </div>
-                      </>
+                            ).toFixed(6)}{" "}
+                      </span>{" "}
+                      ={" "}
+                      <span className="border-2 border-gray-600 text-2xl font-bold text-black">
+                        <span className="m-2">
+                          {calculatedAlpha.toFixed(6)}
+                        </span>
+                      </span>
+                    </div>
+                    {calculatedAlpha === 0 && (
+                      <div className="mt-2 text-xs text-gray-600">
+                        Note: α = 0 indicates no internal consistency between
+                        items
+                      </div>
                     )}
                   </div>
                 </div>
