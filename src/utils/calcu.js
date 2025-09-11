@@ -1,24 +1,5 @@
-/**
- * Cronbach's Alpha Calculation Utility
- * ------------------------------------
- * The formula for Cronbach's Alpha is:
- *   α = (k / (k-1)) * [1 - (Σσᵢ² / σₜ²)]
- *   where:
- *     - k = number of items (columns)
- *     - σᵢ² = variance of each item (column)
- *     - σₜ² = variance of the total score (sum across items for each respondent)
- *
- *   - For each respondent, sum their answers to get a total score.
- *   - Calculate the variance for each item (how much responses differ per question).
- *   - Calculate the variance of the total scores (how much overall scores differ between respondents).
- *   - If items are consistent (measure the same thing), the total score variance will be much larger than the sum of item variances, making alpha approach 1.
- *   - If items are unrelated, the sum of item variances will be close to the total variance, making alpha approach 0.
- *
- * The function returns both the alpha value and all intermediate statistics for transparency, further analysis, and visualization.
- */
 export const calculateCronbachAlpha = (data) => {
   // data: 2D array (rows = responses, columns = items)
-
   const n_items = data[0].length;
   const n_respondents = data.length;
 
@@ -110,8 +91,8 @@ export const calculateCronbachAlpha = (data) => {
       alpha: NaN,
       computationData: baseComputationData,
       error: {
-        code: "ZERO_ITEM_VARIANCE",
-        message: "All items have zero variance (all columns are constant).",
+        code: 'ZERO_ITEM_VARIANCE',
+        message: 'All items have zero variance (all columns are constant).',
         details: `All ${n_items} items show no variation across respondents. This means all respondents gave the same answer to every question, making reliability calculation meaningless.`,
         affectedItems: zeroVarianceItems,
       },
@@ -123,7 +104,7 @@ export const calculateCronbachAlpha = (data) => {
       alpha: NaN,
       computationData: baseComputationData,
       error: {
-        code: "PARTIAL_ZERO_VARIANCE",
+        code: 'PARTIAL_ZERO_VARIANCE',
         message: `${zeroVarianceItems.length} item(s) have zero variance.`,
         details: `Items with zero variance cannot contribute to reliability measurement as they show no variation across respondents.`,
         affectedItems: zeroVarianceItems,
@@ -136,9 +117,9 @@ export const calculateCronbachAlpha = (data) => {
       alpha: NaN,
       computationData: baseComputationData,
       error: {
-        code: "ZERO_TOTAL_VARIANCE",
+        code: 'ZERO_TOTAL_VARIANCE',
         message:
-          "Total variance is zero (all respondents have the same total score).",
+          'Total variance is zero (all respondents have the same total score).',
         details: `All respondents have the same total score (${total_scores[0]}). This creates division by zero in the Cronbach's Alpha formula.`,
         totalScore: total_scores[0],
       },
