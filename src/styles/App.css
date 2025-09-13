@@ -33,6 +33,11 @@
   }
 }
 
+.mono {
+  /* color: red; */
+  font-family: 'monospace', monospace;
+}
+
 .card {
   padding: 2em;
 }
@@ -50,4 +55,3 @@
     overflow-x: auto;
   }
 }
-

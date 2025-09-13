@@ -1,14 +1,15 @@
-import { SlCalculator } from "react-icons/sl";
-import { FaGithub } from "react-icons/fa";
-import { GrSend } from "react-icons/gr";
+// import { SlCalculator } from "react-icons/sl";
+import { FaGithub } from 'react-icons/fa';
+import { GrSend } from 'react-icons/gr';
+import logo from '../assets/icon.png';
 
 export const NavBar = () => {
   return (
     <nav className="navbar shadow-base-300/20 fixed top-0 left-0 z-50 m-0 w-full rounded-none border-b-2 border-zinc-400 bg-neutral-300 px-8 py-4 shadow-sm">
       <div className="flex w-full items-center">
         <div className="flex flex-row items-center gap-3">
-          <SlCalculator className="text-2xl text-black" />
-          <span className="ml-3 text-2xl font-bold whitespace-nowrap text-black text-shadow-lg/30">
+          <img src={logo} alt="logo" className="h-8 w-8 opacity-75" />
+          <span className="ml-1 text-2xl font-bold whitespace-nowrap text-black text-shadow-lg/30">
             <span className="text-yellow-500">C</span>ronbach
             <span className="text-[#ffda03]">C</span>alculator
           </span>
