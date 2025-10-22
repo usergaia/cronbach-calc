@@ -6,7 +6,7 @@
  <img src="lp.png" alt="comparison image" />
 </p>
 
-*Check it out:* [https://cronbach-calc.vercel.app/](https://cronbach-calc.vercel.app/)
+*Check it out:* [https://croncalc.vercel.app/](https://croncalc.vercel.app/)
 
 ## Supported File Extensions
 
