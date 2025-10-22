@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
-import { IoIosWarning } from "react-icons/io";
-import { DataMatrix } from "./data-matr-res.jsx";
-import { ComputationVisualization } from "./comp-vis-res.jsx";
+import { useState, useEffect } from 'react';
+import { IoIosWarning } from 'react-icons/io';
+import { DataMatrix } from './data-matr-res.jsx';
+import { ComputationVisualization } from './comp-vis-res.jsx';
 
 export function ResultContainer({ matrix, alpha }) {
   // state variables
@@ -9,7 +9,7 @@ export function ResultContainer({ matrix, alpha }) {
   const [fullScreenMatrix, setFullScreenMatrix] = useState(false);
   const [fullScreenAnalysis, setFullScreenAnalysis] = useState(false);
   const [computationData, setComputationData] = useState(null);
-  const [description, setDescription] = useState("");
+  const [description, setDescription] = useState('');
   const [invalid, setInvalid] = useState(null);
   const [errorDetails, setErrorDetails] = useState(null);
 
@@ -20,12 +20,12 @@ export function ResultContainer({ matrix, alpha }) {
   useEffect(() => {
     if (!alpha) return;
 
-    let newDescription = "";
+    let newDescription = '';
     let newComputationData = null;
     let newInvalid = null;
     let newErrorDetails = null;
 
-    if (typeof alpha === "object") {
+    if (typeof alpha === 'object') {
       newComputationData = alpha.computationData;
 
       // handle error cases
@@ -41,7 +41,7 @@ export function ResultContainer({ matrix, alpha }) {
         newInvalid = alpha.invalid;
       } else if (isNaN(alpha.alpha)) {
         newInvalid =
-          "Invalid alpha value calculation (possible division by zero)";
+          'Invalid alpha value calculation (possible division by zero)';
       }
     }
 
@@ -56,24 +56,24 @@ export function ResultContainer({ matrix, alpha }) {
               newComputationData.sum_item_variances /
                 newComputationData.total_variance)
           : 0;
-    } else if (typeof alpha === "number") {
+    } else if (typeof alpha === 'number') {
       alphaForDescription = alpha;
     }
     if (alphaForDescription !== null && !isNaN(alphaForDescription)) {
       if (alphaForDescription >= 0.9)
-        newDescription = "Excellent Internal Consistency";
+        newDescription = 'Excellent Internal Consistency';
       else if (alphaForDescription >= 0.8)
-        newDescription = "Good Internal Consistency";
+        newDescription = 'Good Internal Consistency';
       else if (alphaForDescription >= 0.7)
-        newDescription = "Acceptable Internal Consistency";
+        newDescription = 'Acceptable Internal Consistency';
       else if (alphaForDescription >= 0.6)
-        newDescription = "Questionable Internal Consistency";
+        newDescription = 'Questionable Internal Consistency';
       else if (alphaForDescription >= 0.5)
-        newDescription = "Poor Internal Consistency";
-      else newDescription = "Unacceptable Internal Consistency";
+        newDescription = 'Poor Internal Consistency';
+      else newDescription = 'Unacceptable Internal Consistency';
     } else if (newInvalid) {
       // if invalid because of zero variance
-      newDescription = "Invalid Calculation";
+      newDescription = 'Invalid Calculation';
     }
 
     // Safe state updates
@@ -95,9 +95,9 @@ export function ResultContainer({ matrix, alpha }) {
     const getErrorIcon = () => {
       if (!errorDetails?.code) return <IoIosWarning className="text-red-700" />;
       switch (errorDetails.code) {
-        case "ZERO_ITEM_VARIANCE":
+        case 'ZERO_ITEM_VARIANCE':
           return <IoIosWarning className="text-red-700" />;
-        case "ZERO_TOTAL_VARIANCE":
+        case 'ZERO_TOTAL_VARIANCE':
           return <IoIosWarning className="text-orange-500" />;
         default:
           return <IoIosWarning className="text-red-700" />;
@@ -107,9 +107,9 @@ export function ResultContainer({ matrix, alpha }) {
     return (
       <div
         className={`rounded-lg border-l-4 ${
-          errorDetails?.code === "ZERO_TOTAL_VARIANCE"
-            ? "border-orange-500 bg-orange-50"
-            : "border-red-500 bg-red-50"
+          errorDetails?.code === 'ZERO_TOTAL_VARIANCE'
+            ? 'border-orange-500 bg-orange-50'
+            : 'border-red-500 bg-red-50'
         } mb-6 p-4`}
       >
         <div className="flex">
@@ -117,9 +117,9 @@ export function ResultContainer({ matrix, alpha }) {
           <div className="flex-1">
             <h3
               className={`text-sm font-medium ${
-                errorDetails?.code === "ZERO_TOTAL_VARIANCE"
-                  ? "text-orange-800"
-                  : "text-red-800"
+                errorDetails?.code === 'ZERO_TOTAL_VARIANCE'
+                  ? 'text-orange-800'
+                  : 'text-red-800'
               }`}
             >
               {error}
@@ -145,10 +145,10 @@ export function ResultContainer({ matrix, alpha }) {
   return (
     <>
       {fullScreenMatrix && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/85">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-2 md:p-4">
           <div className="relative mx-auto flex h-[90vh] w-full max-w-5xl flex-col rounded-lg bg-white p-0 shadow-2xl">
-            <div className="flex items-center justify-between rounded-t-lg border-b border-gray-200 bg-gray-50 px-6 py-4">
-              <h2 className="text-lg font-semibold text-gray-800">
+            <div className="flex items-center justify-between rounded-t-lg border-b border-gray-200 bg-gray-50 px-4 py-3 md:px-6 md:py-4">
+              <h2 className="text-base font-semibold text-gray-800 md:text-lg">
                 Tabular Data
               </h2>
               <button
@@ -159,7 +159,7 @@ export function ResultContainer({ matrix, alpha }) {
                 ×
               </button>
             </div>
-            <div className="flex-1 overflow-hidden rounded-b-lg bg-white p-6">
+            <div className="flex-1 overflow-hidden rounded-b-lg bg-white p-3 md:p-6">
               <DataMatrix
                 data={matrix}
                 inFullScreen
@@ -170,14 +170,14 @@ export function ResultContainer({ matrix, alpha }) {
         </div>
       )}
 
-      <hr className="my-6 border-t-2 border-gray-300 opacity-60 shadow-sm" />
-      <div className="mt-12 flex w-full flex-col items-center justify-center">
-        <div className="flex w-full max-w-7xl flex-col items-center rounded-2xl border-2 border-gray-200 bg-white px-8 py-10 shadow-lg">
+      <hr className="my-4 border-t-2 border-gray-300 opacity-60 shadow-sm md:my-6" />
+      <div className="mt-6 flex w-full flex-col items-center justify-center md:mt-12">
+        <div className="flex w-full max-w-7xl flex-col items-center rounded-xl border-2 border-gray-200 bg-white px-4 py-6 shadow-lg md:rounded-2xl md:px-8 md:py-10">
           {hasResult ? (
             <div className="w-full">
-              <div className="mb-8 text-center">
-                <div className="mb-2 text-3xl font-bold text-blue-800">
-                  Cronbach's Alpha:{" "}
+              <div className="mb-6 text-center md:mb-8">
+                <div className="mb-2 text-xl font-bold text-blue-800 md:text-3xl">
+                  Cronbach's Alpha:{' '}
                   <span className="text-gray-900">
                     {computationData &&
                     computationData.total_variance !== undefined
@@ -189,31 +189,29 @@ export function ResultContainer({ matrix, alpha }) {
                               computationData.sum_item_variances /
                                 computationData.total_variance)
                           ).toFixed(4)
-                        : "0.0000"
-                      : "Undefined"}
+                        : '0.0000'
+                      : 'Undefined'}
                   </span>
                 </div>
-                <div className="mb-4 text-lg text-gray-600">{description}</div>
+                <div className="mb-4 text-base text-gray-600 md:text-lg">
+                  {description}
+                </div>
               </div>
-
               <ErrorDisplay error={invalid} errorDetails={errorDetails} />
-
               <DataMatrix
                 data={matrix}
                 onFullScreenToggle={() => setFullScreenMatrix(true)}
               />
-
               {computationData && (
-                <div className="mt-8 mb-6 flex justify-center">
+                <div className="mt-6 mb-4 flex justify-center md:mt-8 md:mb-6">
                   <button
                     onClick={() => setShowSolution(!showSolution)}
-                    className="rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 px-8 py-3 font-semibold text-white shadow-lg hover:from-blue-700 hover:to-indigo-700"
+                    className="rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 px-6 py-2.5 text-sm font-semibold text-white shadow-lg hover:from-blue-700 hover:to-indigo-700 md:px-8 md:py-3 md:text-base"
                   >
-                    {showSolution ? "Hide Solution" : "See Solution"}
+                    {showSolution ? 'Hide Solution' : 'See Solution'}
                   </button>
                 </div>
-              )}
-
+              )}{' '}
               {showSolution && computationData && (
                 <div className="animate-in slide-in-from-top duration-500">
                   <ComputationVisualization
@@ -230,7 +228,7 @@ export function ResultContainer({ matrix, alpha }) {
               )}
             </div>
           ) : (
-            <div className="text-lg text-gray-400 italic">
+            <div className="text-base text-gray-400 italic md:text-lg">
               No results to display yet.
             </div>
           )}

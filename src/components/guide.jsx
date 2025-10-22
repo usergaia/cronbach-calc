@@ -1,15 +1,15 @@
-import { IoIosInformationCircleOutline } from "react-icons/io";
-import { FaThumbsUp } from "react-icons/fa";
-import { FaThumbsDown } from "react-icons/fa";
-import { FaCheck } from "react-icons/fa";
-import { BiSolidErrorAlt } from "react-icons/bi";
+import { IoIosInformationCircleOutline } from 'react-icons/io';
+import { FaThumbsUp } from 'react-icons/fa';
+import { FaThumbsDown } from 'react-icons/fa';
+import { FaCheck } from 'react-icons/fa';
+import { BiSolidErrorAlt } from 'react-icons/bi';
 
 export const Guide = () => {
   return (
-    <div className="mr-10 w-1/3 self-auto rounded-lg bg-neutral-300 p-4 text-black shadow-xl/30">
-      <div className="mb-4 flex items-center gap-2">
-        <IoIosInformationCircleOutline className="text-2xl text-[#0183ce]" />
-        <h1 className="text-left text-xl font-semibold text-[#0183ce]">
+    <div className="w-full self-auto rounded-lg bg-neutral-300 p-3 text-black shadow-xl/30 md:p-4 lg:mr-10 lg:w-1/3">
+      <div className="mb-3 flex items-center gap-2 md:mb-4">
+        <IoIosInformationCircleOutline className="text-xl text-[#0183ce] md:text-2xl" />
+        <h1 className="text-left text-lg font-semibold text-[#0183ce] md:text-xl">
           How Does It Work?
         </h1>
       </div>

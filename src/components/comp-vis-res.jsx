@@ -1,8 +1,8 @@
-import { MdFullscreen } from "react-icons/md";
-import { TbReportAnalytics } from "react-icons/tb";
-import { IoStatsChart } from "react-icons/io5";
-import { IoIosWarning } from "react-icons/io";
-import { useBodyScrollLock } from "../hooks/scLock-body";
+import { MdFullscreen } from 'react-icons/md';
+import { TbReportAnalytics } from 'react-icons/tb';
+import { IoStatsChart } from 'react-icons/io5';
+import { IoIosWarning } from 'react-icons/io';
+import { useBodyScrollLock } from '../hooks/scLock-body';
 
 export function ComputationVisualization({
   data,
@@ -22,9 +22,9 @@ export function ComputationVisualization({
     const getErrorIcon = () => {
       if (!errorDetails?.code) return <IoIosWarning className="text-red-700" />;
       switch (errorDetails.code) {
-        case "ZERO_ITEM_VARIANCE":
+        case 'ZERO_ITEM_VARIANCE':
           return <IoIosWarning className="text-red-700" />;
-        case "ZERO_TOTAL_VARIANCE":
+        case 'ZERO_TOTAL_VARIANCE':
           return <IoIosWarning className="text-orange-500" />;
         default:
           return <IoIosWarning className="text-yellow-500" />;
@@ -34,19 +34,19 @@ export function ComputationVisualization({
     return (
       <div
         className={`rounded-lg border-l-4 ${
-          errorDetails?.code === "ZERO_TOTAL_VARIANCE"
-            ? "border-orange-500 bg-orange-50"
-            : "border-red-500 bg-red-50"
+          errorDetails?.code === 'ZERO_TOTAL_VARIANCE'
+            ? 'border-orange-500 bg-orange-50'
+            : 'border-red-500 bg-red-50'
         } mb-6 p-4`}
-      > 
+      >
         <div className="flex">
-         <div className="mr-3 flex-shrink-0 text-xl">{getErrorIcon()}</div>
+          <div className="mr-3 flex-shrink-0 text-xl">{getErrorIcon()}</div>
           <div className="flex-1">
             <h3
               className={`text-sm font-medium ${
-                errorDetails?.code === "ZERO_TOTAL_VARIANCE"
-                  ? "text-orange-800"
-                  : "text-red-800"
+                errorDetails?.code === 'ZERO_TOTAL_VARIANCE'
+                  ? 'text-orange-800'
+                  : 'text-red-800'
               }`}
             >
               {error}
@@ -72,15 +72,15 @@ export function ComputationVisualization({
   // denomination display
   const DataAnalysisTables = ({ inFullScreen = false }) => (
     <div
-      className={`space-y-4 ${inFullScreen ? "h-full overflow-auto" : "h-[600px] overflow-auto"}`}
+      className={`space-y-4 ${inFullScreen ? 'h-full overflow-auto' : 'h-[600px] overflow-auto'}`}
     >
       <ErrorDisplay error={invalid} errorDetails={errorDetails} />
 
-      <div className="rounded-xl border-2 border-blue-200 bg-blue-50 p-6 shadow-lg">
+      <div className="rounded-lg border-2 border-blue-200 bg-blue-50 p-3 shadow-lg md:rounded-xl md:p-6">
         {!inFullScreen && (
-          <div className="mb-4 flex items-center justify-center gap-2">
-            <h4 className="flex items-center gap-2 text-lg font-semibold text-gray-700">
-              <TbReportAnalytics className="mr-1 inline-block text-xl" />
+          <div className="mb-3 flex items-center justify-center gap-2 md:mb-4">
+            <h4 className="flex items-center gap-2 text-base font-semibold text-gray-700 md:text-lg">
+              <TbReportAnalytics className="mr-1 inline-block text-lg md:text-xl" />
               Denomination
             </h4>
             <button
@@ -88,15 +88,15 @@ export function ComputationVisualization({
               onClick={onFullScreenAnalysisToggle}
               title="Full Screen Data Analysis"
             >
-              <MdFullscreen style={{ fontSize: "1.7rem" }} />
+              <MdFullscreen style={{ fontSize: '1.7rem' }} />
             </button>
           </div>
         )}
         <div className="overflow-x-auto">
-          <table className="w-full text-sm">
+          <table className="w-full text-xs md:text-sm">
             <thead>
               <tr className="rounded-lg bg-blue-100">
-                <th className="px-3 py-2 font-semibold text-blue-800">
+                <th className="px-2 py-2 font-semibold text-blue-800 md:px-3">
                   Response
                 </th>
                 {data[0].map((_, idx) => (
@@ -116,7 +116,7 @@ export function ComputationVisualization({
               {data.map((row, rowIdx) => (
                 <tr
                   key={rowIdx}
-                  className={rowIdx % 2 === 0 ? "bg-white" : "bg-blue-25"}
+                  className={rowIdx % 2 === 0 ? 'bg-white' : 'bg-blue-25'}
                 >
                   <td className="px-3 py-2 text-center font-medium text-gray-700">
                     {rowIdx + 1}
@@ -141,11 +141,12 @@ export function ComputationVisualization({
                     key={colIdx}
                     className="px-3 py-2 text-center font-semibold text-green-700"
                   >
-                    {data.reduce((sum, row) => sum + row[colIdx], 0)} 
+                    {data.reduce((sum, row) => sum + row[colIdx], 0)}
                   </td>
                 ))}
                 <td className="bg-green-200 px-3 py-2 text-center font-bold text-green-800">
-                  {computation.sum_total_scores} {/* sum of responses for each item */}
+                  {computation.sum_total_scores}{' '}
+                  {/* sum of responses for each item */}
                 </td>
               </tr>
             </tbody>
@@ -199,8 +200,8 @@ export function ComputationVisualization({
                     key={idx}
                     className={`px-3 py-2 text-center ${
                       variance === 0
-                        ? "border-2 border-red-300 bg-red-100 font-bold text-red-700"
-                        : "text-gray-600"
+                        ? 'border-2 border-red-300 bg-red-100 font-bold text-red-700'
+                        : 'text-gray-600'
                     }`}
                   >
                     {variance.toFixed(6)}
@@ -210,8 +211,8 @@ export function ComputationVisualization({
                 <td
                   className={`border-2 border-purple-800 bg-orange-100 px-3 py-2 text-center font-bold ${
                     computation.sum_item_variances === 0
-                      ? "border-2 border-red-300 text-red-700"
-                      : "text-orange-700"
+                      ? 'border-2 border-red-300 text-red-700'
+                      : 'text-orange-700'
                   }`}
                 >
                   {computation.sum_item_variances.toFixed(6)}
@@ -276,8 +277,8 @@ export function ComputationVisualization({
               </li>
             </ul>
             <div className="mt-4 border-t border-blue-100 pt-2 text-xs text-gray-600 italic">
-              where <span className="font-mono">x</span> = individual score,{" "}
-              <span className="font-mono">x̄</span> = mean,{" "}
+              where <span className="font-mono">x</span> = individual score,{' '}
+              <span className="font-mono">x̄</span> = mean,{' '}
               <span className="font-mono">n</span> = number of responses
             </div>
           </div>
@@ -330,7 +331,7 @@ export function ComputationVisualization({
               <div className="space-y-6">
                 <div className="rounded-lg border-2 border-green-300 bg-white p-4 text-center">
                   <div className="font-mono text-lg text-gray-800">
-                    α = <span className="text-blue-600">(k / (k-1))</span> ×{" "}
+                    α = <span className="text-blue-600">(k / (k-1))</span> ×{' '}
                     <span className="text-orange-600">
                       (1 - <span className="text-purple-600">Σσᵢ² / σₜ²</span>)
                     </span>
@@ -348,7 +349,7 @@ export function ComputationVisualization({
                     </div>
                     <div className="font-mono text-gray-700">
                       k/(k-1) = {computation.n_items}/({computation.n_items}-1)
-                      ={" "}
+                      ={' '}
                       <span className="font-bold text-blue-600">
                         {(
                           computation.n_items /
@@ -366,19 +367,20 @@ export function ComputationVisualization({
                       <>
                         <div className="font-mono text-gray-700">
                           Σσᵢ²/σₜ² = {computation.sum_item_variances.toFixed(6)}
-                          /0 ={" "}
+                          /0 ={' '}
                           <span className="font-bold text-red-600">
                             Undefined
                           </span>
                         </div>
                         <div className="mt-2 text-xs text-red-600">
-                          Note: Using 0 for final calculation since ratio is undefined
+                          Note: Using 0 for final calculation since ratio is
+                          undefined
                         </div>
                       </>
                     ) : (
                       <div className="font-mono text-gray-700">
                         Σσᵢ²/σₜ² = {computation.sum_item_variances.toFixed(6)}/
-                        {computation.total_variance.toFixed(6)} ={" "}
+                        {computation.total_variance.toFixed(6)} ={' '}
                         <span className="font-bold text-purple-600">
                           {(
                             computation.sum_item_variances /
@@ -395,21 +397,21 @@ export function ComputationVisualization({
                     </div>
                     {computation.total_variance === 0 ? (
                       <div className="font-mono text-gray-700">
-                        Using default value:{" "}
+                        Using default value:{' '}
                         <span className="font-bold text-orange-600">
                           0.000000
                         </span>
                       </div>
                     ) : (
                       <div className="font-mono text-gray-700">
-                        1 -{" "}
+                        1 -{' '}
                         <span className="font-bold text-purple-600">
                           {(
                             computation.sum_item_variances /
                             computation.total_variance
                           ).toFixed(6)}
-                        </span>{" "}
-                        ={" "}
+                        </span>{' '}
+                        ={' '}
                         <span className="font-bold text-orange-600">
                           {(
                             1 -
@@ -426,24 +428,24 @@ export function ComputationVisualization({
                       Final Result:
                     </div>
                     <div className="font-mono text-gray-700">
-                      α ={" "}
+                      α ={' '}
                       <span className="font-bold text-blue-600">
                         {(
                           computation.n_items /
                           (computation.n_items - 1)
                         ).toFixed(6)}
-                      </span>{" "}
-                      ×{" "}
+                      </span>{' '}
+                      ×{' '}
                       <span className="font-bold text-orange-600">
                         {computation.total_variance === 0
-                          ? "0.000000"
+                          ? '0.000000'
                           : (
                               1 -
                               computation.sum_item_variances /
                                 computation.total_variance
-                            ).toFixed(6)}{" "}
-                      </span>{" "}
-                      ={" "}
+                            ).toFixed(6)}{' '}
+                      </span>{' '}
+                      ={' '}
                       <span className="border-2 border-gray-600 text-2xl font-bold text-black">
                         <span className="m-2">
                           {calculatedAlpha.toFixed(6)}

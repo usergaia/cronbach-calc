@@ -1,5 +1,5 @@
-import React from "react";
-import { useEffect } from "react";
+import React from 'react';
+import { useEffect } from 'react';
 
 export const CreateTable = ({
   row,
@@ -11,7 +11,7 @@ export const CreateTable = ({
   // return a table with the specified number of rows and columns
   const createEmptyTable = (rows, cols) => {
     return Array.from({ length: rows }, () =>
-      Array.from({ length: cols }, () => ""),
+      Array.from({ length: cols }, () => '')
     );
   };
 
@@ -42,7 +42,7 @@ export const UpdateTable = ({ tableData, setTableData, nanCells = [] }) => {
 
   const deleteRow = (rowIndex) => {
     if (tableData.length < 3) {
-      console.error("Cannot delete row: table must have at least 2 rows");
+      console.error('Cannot delete row: table must have at least 2 rows');
       return;
     }
 
@@ -52,12 +52,12 @@ export const UpdateTable = ({ tableData, setTableData, nanCells = [] }) => {
 
   const deleteCol = (colIndex) => {
     if (tableData[0].length < 3) {
-      console.error("Cannot delete column: table must have at least 2 columns");
+      console.error('Cannot delete column: table must have at least 2 columns');
       return;
     }
 
     const newTableData = tableData.map((row) =>
-      row.filter((_, index) => index !== colIndex),
+      row.filter((_, index) => index !== colIndex)
     );
     setTableData(newTableData);
   };
@@ -65,11 +65,11 @@ export const UpdateTable = ({ tableData, setTableData, nanCells = [] }) => {
   const addRow = () => {
     if (tableData.length === 0) return;
     const cols = tableData[0].length;
-    setTableData([...tableData, Array(cols).fill("")]);
+    setTableData([...tableData, Array(cols).fill('')]);
   };
 
   const addCol = () => {
-    setTableData(tableData.map((row) => [...row, ""]));
+    setTableData(tableData.map((row) => [...row, '']));
   };
 
   if (!tableData || tableData.length === 0) return null;
@@ -79,37 +79,37 @@ export const UpdateTable = ({ tableData, setTableData, nanCells = [] }) => {
     nanCells.some(([row, col]) => row === r && col === c);
 
   return (
-    <div className="relative mx-auto w-full max-w-6xl p-6 pr-20">
+    <div className="relative mx-auto w-full max-w-6xl p-3 pr-12 md:p-6 md:pr-20">
       <button
         type="button"
         onClick={addCol}
-        className="group button absolute top-1/2 right-4 z-20 flex h-12 w-12 items-center justify-center rounded-xl border border-emerald-200 bg-emerald-50 text-2xl font-bold text-emerald-500 shadow-lg hover:border-emerald-300 hover:bg-emerald-400 hover:text-white"
-        style={{ translate: "0 -50%" }}
+        className="group button absolute top-1/2 right-2 z-20 flex h-10 w-10 items-center justify-center rounded-xl border border-emerald-200 bg-emerald-50 text-xl font-bold text-emerald-500 shadow-lg hover:border-emerald-300 hover:bg-emerald-400 hover:text-white md:right-4 md:h-12 md:w-12 md:text-2xl"
+        style={{ translate: '0 -50%' }}
         title="Add column"
       >
         +
       </button>
 
-      <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-lg">
+      <div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-lg md:rounded-2xl">
         <div className="overflow-x-auto">
           <div className="relative inline-block min-w-full">
-            <div className="border-b border-slate-200 bg-gradient-to-r from-slate-50 to-slate-100 px-4 py-4">
+            <div className="border-b border-slate-200 bg-gradient-to-r from-slate-50 to-slate-100 px-2 py-3 md:px-4 md:py-4">
               <div
-                className="grid items-center gap-2"
+                className="grid items-center gap-1 md:gap-2"
                 style={{
-                  gridTemplateColumns: `40px repeat(${tableData[0].length}, minmax(120px, 1fr))`,
+                  gridTemplateColumns: `30px repeat(${tableData[0].length}, minmax(80px, 1fr))`,
                 }}
               >
-                <div className="h-8 w-10"></div>
+                <div className="h-6 w-8 md:h-8 md:w-10"></div>
                 {tableData[0].map((_, c) => (
                   <div
                     key={c}
-                    className="flex h-12 items-center justify-center"
+                    className="flex h-10 items-center justify-center md:h-12"
                   >
                     <button
                       type="button"
                       onClick={() => deleteCol(c)}
-                      className="group flex h-12 w-12 items-center justify-center rounded-xl border border-red-200 bg-red-50 text-2xl font-bold text-red-500 shadow-lg transition-all duration-200 hover:border-red-300 hover:bg-red-400 hover:text-white"
+                      className="group flex h-10 w-10 items-center justify-center rounded-lg border border-red-200 bg-red-50 text-xl font-bold text-red-500 shadow-lg transition-all duration-200 hover:border-red-300 hover:bg-red-400 hover:text-white md:h-12 md:w-12 md:rounded-xl md:text-2xl"
                       title="Delete column"
                     >
                       −
@@ -121,21 +121,21 @@ export const UpdateTable = ({ tableData, setTableData, nanCells = [] }) => {
 
             {/* table body */}
             <div
-              className="relative flex flex-col p-4"
-              style={{ maxHeight: "520px" }}
+              className="relative flex flex-col p-2 md:p-4"
+              style={{ maxHeight: '520px' }}
             >
               <div className="flex-1 overflow-y-auto">
                 {tableData.map((row, r) => (
                   <div
                     key={r}
-                    className="mb-3 flex items-center gap-2 last:mb-0"
+                    className="mb-2 flex items-center gap-1 last:mb-0 md:mb-3 md:gap-2"
                   >
                     {/* row delete button */}
-                    <div className="m-2 flex w-10 justify-center">
+                    <div className="m-1 flex w-8 justify-center md:m-2 md:w-10">
                       <button
                         type="button"
                         onClick={() => deleteRow(r)}
-                        className="group m-0.5 flex h-12 w-12 items-center justify-center rounded-xl border border-red-200 bg-red-50 text-2xl font-bold text-red-500 shadow-lg transition-all duration-200 hover:border-red-300 hover:bg-red-400 hover:text-white"
+                        className="group m-0.5 flex h-10 w-10 items-center justify-center rounded-lg border border-red-200 bg-red-50 text-xl font-bold text-red-500 shadow-lg transition-all duration-200 hover:border-red-300 hover:bg-red-400 hover:text-white md:h-12 md:w-12 md:rounded-xl md:text-2xl"
                         title="Delete row"
                       >
                         −
@@ -144,14 +144,17 @@ export const UpdateTable = ({ tableData, setTableData, nanCells = [] }) => {
 
                     {/* row cells */}
                     {row.map((cell, c) => (
-                      <div key={c} className="m-2 min-w-24 flex-1">
+                      <div
+                        key={c}
+                        className="m-1 min-w-20 flex-1 md:m-2 md:min-w-24"
+                      >
                         <input
                           type="text"
                           value={cell}
                           onChange={(e) =>
                             handleChangeMatrix(r, c, e.target.value)
                           }
-                          className={`h-12 w-full rounded-lg border bg-slate-50 px-4 text-center text-slate-700 transition-all duration-200 hover:bg-slate-100 focus:border-transparent focus:ring-2 focus:ring-blue-500 focus:outline-none ${isNanCell(r, c) ? "border-red-500 bg-red-50" : "border-slate-200"}`}
+                          className={`h-10 w-full rounded-lg border bg-slate-50 px-2 text-center text-sm text-slate-700 transition-all duration-200 hover:bg-slate-100 focus:border-transparent focus:ring-2 focus:ring-blue-500 focus:outline-none md:h-12 md:px-4 md:text-base ${isNanCell(r, c) ? 'border-red-500 bg-red-50' : 'border-slate-200'}`}
                           placeholder="Enter value"
                         />
                       </div>
@@ -163,11 +166,11 @@ export const UpdateTable = ({ tableData, setTableData, nanCells = [] }) => {
           </div>
         </div>
       </div>
-      <div className="mt-4 flex justify-center">
+      <div className="mt-3 flex justify-center md:mt-4">
         <button
           type="button"
           onClick={addRow}
-          className="group flex h-12 w-12 items-center justify-center rounded-xl border border-emerald-200 bg-emerald-50 text-2xl font-bold text-emerald-500 shadow-lg hover:border-emerald-300 hover:bg-emerald-400 hover:text-white"
+          className="group flex h-10 w-10 items-center justify-center rounded-xl border border-emerald-200 bg-emerald-50 text-xl font-bold text-emerald-500 shadow-lg hover:border-emerald-300 hover:bg-emerald-400 hover:text-white md:h-12 md:w-12 md:text-2xl"
           title="Add row"
         >
           +

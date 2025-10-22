@@ -1,23 +1,22 @@
-import "./styles/App.css";
-import { useState } from "react";
-import { NavBar } from "./components/nav.jsx";
-import { MainFeature } from "./components/input-cont.jsx";
-import { Guide } from "./components/guide.jsx";
-import { Footer } from "./components/footer.jsx";
-import { ResultContainer } from "./components/result.jsx";
+import './styles/App.css';
+import { useState } from 'react';
+import { NavBar } from './components/nav.jsx';
+import { MainFeature } from './components/input-cont.jsx';
+import { Guide } from './components/guide.jsx';
+import { Footer } from './components/footer.jsx';
+import { ResultContainer } from './components/result.jsx';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 import { Analytics } from '@vercel/analytics/react';
-
 
 function App() {
   const [matrix, setMatrix] = useState([]);
   const [alpha, setAlpha] = useState(null);
 
   return (
-    <div className="flex min-h-screen flex-col force-desktop">
+    <div className="flex min-h-screen flex-col">
       <NavBar />
-      <section className="flex-1 py-13">
-        <div className="flex items-start">
+      <section className="flex-1 px-2 py-13 md:px-4">
+        <div className="flex flex-col items-start gap-4 lg:flex-row">
           <Guide />
           <MainFeature
             matrix={matrix}
@@ -28,8 +27,8 @@ function App() {
         </div>
       </section>
 
-      <section className="w-full">
-        <div className="mx-auto max-w-5xl px-4">
+      <section className="w-full px-2 md:px-4">
+        <div className="mx-auto max-w-5xl">
           <ResultContainer matrix={matrix} alpha={alpha} />
         </div>
       </section>
